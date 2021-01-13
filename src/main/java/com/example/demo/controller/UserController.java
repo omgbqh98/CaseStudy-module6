@@ -30,23 +30,6 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    //dang ky tai khoan
-    @PostMapping("/signup")
-    public ResponseEntity<User> register(@Valid @RequestBody User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        Iterable<User> users = userService.findAll();
-        for (User currentUser : users) {
-            if (currentUser.getUsername().equals(user.getUsername())) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setAvatar("https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg");
-        userService.save(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
 //    @PutMapping("/{id}")
 //    public ResponseEntity<User> updateProfile(@PathVariable Long id, @RequestBody User user) {
