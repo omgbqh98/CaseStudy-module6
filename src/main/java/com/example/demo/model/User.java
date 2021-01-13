@@ -22,7 +22,6 @@ public class User {
     private String phone;
     private String address;
     private String email;
-    @Column(columnDefinition="String DEFAULT 'userDefaultAvatar.jpeg'")
     private String avatar;
 
     public User() {
