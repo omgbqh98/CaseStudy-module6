@@ -10,7 +10,7 @@ public interface IUserService  {
 
     Iterable<User> findAll();
 
-//    Optional<User> findById(Long id);
+    Optional<User> findById(Long id);
 
 //    boolean isRegister(User user);
 
