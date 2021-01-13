@@ -17,7 +17,7 @@ public class User {
     @NotEmpty
     @Size(min = 6, max = 8)
     private String password;
-    private String fullname;
+    private String fullName;
     @NotEmpty
     private String phone;
     private String address;
