@@ -16,7 +16,7 @@ import java.util.Optional;
 @RestController
 @PropertySource("classpath:application.properties")
 @CrossOrigin("*")
-@RequestMapping("users")
+
 public class UserController {
     @Autowired
     IUserService userService;
@@ -31,7 +31,7 @@ public class UserController {
     }
 
     //dang ky tai khoan
-    @PostMapping()
+    @PostMapping("/signup")
     public ResponseEntity<User> register(@Valid @RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
