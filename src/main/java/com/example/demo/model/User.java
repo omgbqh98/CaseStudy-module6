@@ -15,14 +15,12 @@ public class User {
     @NotEmpty
     private String username;
     @NotEmpty
-//    @Size(min = 6, max = 8)
     private String password;
     private String fullName;
     @NotEmpty
     private String phone;
     private String address;
     private String email;
-//    @Column(columnDefinition="String DEFAULT 'userDefaultAvatar.jpeg'")
     private String avatar;
 
     public User() {
