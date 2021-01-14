@@ -62,9 +62,24 @@ public class AuthController {
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-// Test login thành công
+
+    // Test login thành công
     @GetMapping("/hello")
-    public ResponseEntity<String> hello(){
+    public ResponseEntity<String> hello() {
         return new ResponseEntity<>("Hello", HttpStatus.OK);
+    }
+
+    @PutMapping("/changePassword/{id}")
+    public ResponseEntity<User> changePassword(@RequestBody User user) {
+        for (User userFind : userService.findAll()) {
+            if (user.getUsername().equals(userFind.getUsername())) {
+                if (user.getPassword().equals(userFind.getPassword())) {
+                    User userEdit = userService.findByUsername(user.getUsername());
+//                    userEdit.setPassword(newPassword);
+                    userService.save(userEdit);
+                }
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
