@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -32,7 +33,7 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    //dang nhap
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         Authentication authentication = authenticationManager.authenticate(
@@ -69,17 +70,17 @@ public class AuthController {
         return new ResponseEntity<>("Hello", HttpStatus.OK);
     }
 
+
+//    cap nhat mat khau
     @PutMapping("/changePassword/{id}")
-    public ResponseEntity<User> changePassword(@RequestBody User user) {
-        for (User userFind : userService.findAll()) {
-            if (user.getUsername().equals(userFind.getUsername())) {
-                if (user.getPassword().equals(userFind.getPassword())) {
-                    User userEdit = userService.findByUsername(user.getUsername());
-//                    userEdit.setPassword(newPassword);
-                    userService.save(userEdit);
-                }
-            }
+    public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        if (!userOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        String newPass = passwordEncoder.encode(user.getPassword());
+        user.setPassword(newPass);
+        userService.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

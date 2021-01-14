@@ -16,7 +16,7 @@ import java.util.Optional;
 @RestController
 @PropertySource("classpath:application.properties")
 @CrossOrigin("*")
-
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     IUserService userService;
@@ -24,13 +24,19 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/users")
+    @GetMapping()
     public ResponseEntity<Iterable<User>> getAll() {
         Iterable<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public Optional<User> findCustomer(@PathVariable("id") Long id) {
+        Optional<User> user = userService.findById(id);
+        return userService.findById(user.get().getUserId());
+    }
 
+    //cap nhat profile
     @PutMapping("/{id}")
     public ResponseEntity<User> updateProfile(@PathVariable Long id, @RequestBody User user) {
         Optional<User> userOptional = this.userService.findById(id);
