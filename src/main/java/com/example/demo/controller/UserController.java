@@ -5,11 +5,13 @@ import com.example.demo.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @PropertySource("classpath:application.properties")
@@ -43,5 +45,11 @@ public class UserController {
         user.setAvatar("https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg");
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<User> userDetail(@PathVariable Long id) {
+        Optional<User> user = userService.findById(id);
+        return new ResponseEntity<User>(user.get(),HttpStatus.OK);
     }
 }
