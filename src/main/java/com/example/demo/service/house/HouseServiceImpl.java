@@ -28,7 +28,7 @@ public class HouseServiceImpl implements IHouseService{
 
     @Override
     public Optional<House> findById(Long id) {
-        return Optional.empty();
+        return houseRepository.findById(id);
     }
 
     @Override

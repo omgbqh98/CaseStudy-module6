@@ -3,7 +3,9 @@ package com.example.demo.controller;
 import com.example.demo.model.House;
 import com.example.demo.service.house.IHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,7 +30,12 @@ public class HouseController {
     }
 
 
-
-
+    // Xem chi tiết nhà
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<House> getDetailHouse(@PathVariable Long id) {
+        House house = houseService.findById(id).get();
+        return new ResponseEntity<>(house, HttpStatus.OK);
+    }
 
 }

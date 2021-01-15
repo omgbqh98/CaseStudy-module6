@@ -51,7 +51,8 @@ public class UserController {
 //        userService.save(user);
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
-//cap nhat profile
+
+    //cap nhat profile
     @PutMapping("/{username}")
     public ResponseEntity<User> updateProfile(@PathVariable String username, @RequestBody User user) {
         User userOptional = this.userService.findByUsername(username);
@@ -62,6 +63,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    // Tìm tất cả nhà của một chủ nhà
     @GetMapping("/{id}/ownHouses")
     public ResponseEntity<Iterable<House>> findHousesByOwnerId(@PathVariable long id){
         Iterable<House> houses = houseService.findAllByOwnerIdAndDeletedFalse(id);
