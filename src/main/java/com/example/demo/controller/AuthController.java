@@ -69,16 +69,25 @@ public class AuthController {
     public ResponseEntity<String> hello() {
         return new ResponseEntity<>("Hello", HttpStatus.OK);
     }
+    //lay User bang username
+    @GetMapping("/{username}")
+    public User findUserName(@PathVariable("username") String username) {
+        User user = userService.findByUsername(username);
+        return user;
+    }
 
 
 //    cap nhat mat khau
-    @PutMapping("/changePassword/{id}")
-    public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        if (!userOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @PutMapping("/changePassword/{username}")
+    public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable String username) {
+        User userOptional = userService.findByUsername(username);
         String newPass = passwordEncoder.encode(user.getPassword());
+        user.setUserId(userOptional.getUserId());
+        user.setFullName(userOptional.getFullName());
+        user.setPhone(userOptional.getPhone());
+        user.setAvatar(userOptional.getAvatar());
+        user.setUsername(userOptional.getUsername());
+        user.setAddress(userOptional.getAddress());
         user.setPassword(newPass);
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -24,12 +24,19 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @GetMapping()
     public ResponseEntity<Iterable<User>> getAll() {
         Iterable<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
+    //lay User bang username
+    @GetMapping("/{username}")
+    public User findUserName(@PathVariable("username") String username) {
+        User user = userService.findByUsername(username);
+        return user;
+    }
+    //lay user bằng usename
     @GetMapping("/{id}")
     public Optional<User> findCustomer(@PathVariable("id") Long id) {
         Optional<User> user = userService.findById(id);
@@ -37,17 +44,12 @@ public class UserController {
     }
 
     //cap nhat profile
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateProfile(@PathVariable Long id, @RequestBody User user) {
-        Optional<User> userOptional = this.userService.findById(id);
-        if (!userOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        user.setUsername(userOptional.get().getUsername());
-        user.setPassword(userOptional.get().getPassword());
-        user.setUserId(userOptional.get().getUserId());
-
+    @PutMapping("/{username}")
+    public ResponseEntity<User> updateProfile(@PathVariable String username, @RequestBody User user) {
+        User userOptional = this.userService.findByUsername(username);
+        user.setUsername(userOptional.getUsername());
+        user.setPassword(userOptional.getPassword());
+        user.setUserId(userOptional.getUserId());
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
