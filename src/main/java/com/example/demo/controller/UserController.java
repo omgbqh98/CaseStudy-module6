@@ -65,6 +65,6 @@ public class UserController {
     @GetMapping("/{id}/ownHouses")
     public ResponseEntity<Iterable<House>> findHousesByOwnerId(@PathVariable long id){
         Iterable<House> houses = houseService.findAllByOwnerIdAndDeletedFalse(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(houses,HttpStatus.OK);
     }
 }
