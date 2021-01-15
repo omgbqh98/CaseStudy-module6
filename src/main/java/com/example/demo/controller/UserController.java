@@ -36,4 +36,15 @@ public class UserController {
         User user = userService.findByUsername(username);
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
+
+    // Cập nhật thông tin user
+    @PutMapping("/{username}")
+    public ResponseEntity<User> updateProfile(@PathVariable String username, @RequestBody User user) {
+        User userOptional = this.userService.findByUsername(username);
+        user.setUsername(userOptional.getUsername());
+        user.setPassword(userOptional.getPassword());
+        user.setUserId(userOptional.getUserId());
+        userService.save(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
