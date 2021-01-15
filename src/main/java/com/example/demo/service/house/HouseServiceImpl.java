@@ -33,6 +33,10 @@ public class HouseServiceImpl implements IHouseService{
 
     @Override
     public void remove(Long id) {
+    }
 
+    @Override
+    public Iterable<House> findAllByOwnerIdAndDeletedFalse(long ownerId) {
+        return houseRepository.findAllByOwnerIdAndDeletedFalse(ownerId);
     }
 }

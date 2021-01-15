@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -32,7 +33,7 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    //dang nhap
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         Authentication authentication = authenticationManager.authenticate(
@@ -62,9 +63,37 @@ public class AuthController {
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-// Test login thành công
+
+    // Test login thành công
     @GetMapping("/hello")
     public ResponseEntity<String> hello() {
         return new ResponseEntity<>("Hello", HttpStatus.OK);
     }
+
+    //lay User bang username
+    @GetMapping("/{username}")
+    public ResponseEntity<User> findUserName(@PathVariable("username") String username) {
+        User user = userService.findByUsername(username);
+        return new ResponseEntity<>(user,HttpStatus.OK);
+    }
+
+
+//    cap nhat mat khau
+@PutMapping("/changePassword/{id}")
+public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable Long id) {
+    Optional<User> userOptional = userService.findById(id);
+    if (!userOptional.isPresent()) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    String newPass = passwordEncoder.encode(user.getPassword());
+    user.setUserId(userOptional.get().getUserId());
+    user.setFullName(userOptional.get().getFullName());
+    user.setPhone(userOptional.get().getPhone());
+    user.setAvatar(userOptional.get().getAvatar());
+    user.setUsername(userOptional.get().getUsername());
+    user.setAddress(userOptional.get().getAddress());
+    user.setPassword(newPass);
+    userService.save(user);
+    return new ResponseEntity<>(HttpStatus.OK);
+}
 }
