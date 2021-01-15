@@ -18,12 +18,12 @@ public class HouseServiceImpl implements IHouseService{
 
     @Override
     public Iterable<House> findAll() {
-        return null;
+        return houseRepository.findAll();
     }
 
     @Override
     public House save(House house) {
-        return null;
+        return houseRepository.save(house);
     }
 
     @Override
