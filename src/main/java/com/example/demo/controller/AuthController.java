@@ -64,7 +64,7 @@ public class AuthController {
     }
 // Test login thành công
     @GetMapping("/hello")
-    public ResponseEntity<String> hello(){
+    public ResponseEntity<String> hello() {
         return new ResponseEntity<>("Hello", HttpStatus.OK);
     }
 }
