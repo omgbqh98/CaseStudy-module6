@@ -41,7 +41,7 @@ public class UserController {
         Optional<User> user = userService.findById(id);
         return userService.findById(user.get().getUserId());
     }
-
+// cap nhat tin user
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         User user1 = userService.findByUsername(user.getUsername());
@@ -61,14 +61,14 @@ public class UserController {
         return new ResponseEntity<>(houses,HttpStatus.OK);
     }
 
-    // Cập nhật thông tin user
-    @PutMapping("/{username}")
-    public ResponseEntity<User> updateProfile(@PathVariable String username, @RequestBody User user) {
-        User userOptional = this.userService.findByUsername(username);
-        user.setUsername(userOptional.getUsername());
-        user.setPassword(userOptional.getPassword());
-        user.setUserId(userOptional.getUserId());
-        userService.save(user);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    // Cập nhật thông tin user
+//    @PutMapping("/{username}")
+//    public ResponseEntity<User> updateProfile(@PathVariable String username, @RequestBody User user) {
+//        User userOptional = this.userService.findByUsername(username);
+//        user.setUsername(userOptional.getUsername());
+//        user.setPassword(userOptional.getPassword());
+//        user.setUserId(userOptional.getUserId());
+//        userService.save(user);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }
