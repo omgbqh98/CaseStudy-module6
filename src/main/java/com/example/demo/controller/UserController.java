@@ -73,8 +73,7 @@ public class UserController {
         user1.setFullName(user.getFullName());
         user1.setAddress(user.getAddress());
         user1.setEmail(user.getEmail());
-//        user1.setAvatar(user.getAvatar());
-//        user1.setUsername(user.getUsername());
+        user1.setPhone(user.getPhone());
         userService.save(user1);
         return new ResponseEntity<>(HttpStatus.OK);
     }
