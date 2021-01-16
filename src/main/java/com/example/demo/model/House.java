@@ -27,7 +27,7 @@ public class House {
     @NotNull
     private int bathroom;
     @NotNull
-    private int status; // 0: còn trống, 1: đã thuê, 2: đang nâng cấp
+    private int status; // 0: còn trống, 1: đã thuê, 2: đã checkin, 3: đang nâng cấp
     @ManyToOne
     private User ownerId;
     @Column(columnDefinition="BOOLEAN DEFAULT false")
