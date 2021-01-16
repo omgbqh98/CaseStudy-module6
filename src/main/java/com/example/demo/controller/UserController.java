@@ -69,7 +69,6 @@ public class UserController {
         Iterable<House> houses = houseService.findAllByOwnerIdAndDeletedFalse(id);
         return new ResponseEntity<>(houses,HttpStatus.OK);
     }
-    
 
 
 }
