@@ -44,15 +44,15 @@ public class UserController {
     }
 
     //cap nhat profile
-    @PutMapping("/{username}")
-    public ResponseEntity<User> updateProfile(@PathVariable String username, @RequestBody User user) {
-        User userOptional = this.userService.findByUsername(username);
-        user.setUsername(userOptional.getUsername());
-        user.setPassword(userOptional.getPassword());
-        user.setUserId(userOptional.getUserId());
-        userService.save(user);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @PutMapping("/{username}")
+//    public ResponseEntity<User> updateProfile(@PathVariable String username, @RequestBody User user) {
+//        User userOptional = this.userService.findByUsername(username);
+//        user.setUsername(userOptional.getUsername());
+//        user.setPassword(userOptional.getPassword());
+//        user.setUserId(userOptional.getUserId());
+//        userService.save(user);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 //    @PutMapping("/users/{id}")
 //    public ResponseEntity<User> updateUserProfile(@PathVariable Long id, @RequestBody User user) {
 //        Optional<User> userOptional = this.userService.findById(id);
@@ -77,4 +77,12 @@ public class UserController {
         userService.save(user1);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    //lay User bang username
+//    @GetMapping("/{username}")
+//    public ResponseEntity<User> findUserName(@PathVariable("username") String username) {
+//        User user = userService.findByUsername(username);
+//        return new ResponseEntity<>(user,HttpStatus.OK);
+//>>>>>>> fb6943c... thêm API getUserByUserName
+//    }
 }
