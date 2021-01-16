@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-
 import com.example.demo.model.House;
 import com.example.demo.model.User;
 import com.example.demo.service.house.IHouseService;
@@ -51,15 +50,15 @@ public class UserController {
 //        userService.save(user);
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
-
     // Cập nhật thông tin user
-    @PutMapping("/{username}")
-    public ResponseEntity<User> updateProfile(@PathVariable String username, @RequestBody User user) {
-        User userOptional = this.userService.findByUsername(username);
-        user.setUsername(userOptional.getUsername());
-        user.setPassword(userOptional.getPassword());
-        user.setUserId(userOptional.getUserId());
-        userService.save(user);
+    @PutMapping("/update")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        User user1 = userService.findByUsername(user.getUsername());
+        user1.setFullName(user.getFullName());
+        user1.setAddress(user.getAddress());
+        user1.setEmail(user.getEmail());
+        user1.setPhone(user.getPhone());
+        userService.save(user1);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -69,6 +68,4 @@ public class UserController {
         Iterable<House> houses = houseService.findAllByOwnerIdAndDeletedFalse(id);
         return new ResponseEntity<>(houses,HttpStatus.OK);
     }
-
-
 }

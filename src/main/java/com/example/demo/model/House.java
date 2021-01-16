@@ -45,7 +45,6 @@ public class House {
         this.ownerId = ownerId;
         this.isDeleted = isDeleted;
     }
-
     public House() {
     }
 }
