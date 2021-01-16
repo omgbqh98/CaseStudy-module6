@@ -53,13 +53,27 @@ public class UserController {
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+//    @PutMapping("/users/{id}")
+//    public ResponseEntity<User> updateUserProfile(@PathVariable Long id, @RequestBody User user) {
+//        Optional<User> userOptional = this.userService.findById(id);
+//        if (!userOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        user.setUserId(userOptional.get().getUserId());
+//        user.setUsername(userOptional.get().getUsername());
+//        user.setEmail(userOptional.get().getEmail());
+//        user.setPassword(userOptional.get().getPassword());
+//        user.setRoles(userOptional.get().getRoles());
+//        userService.save(user);
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         User user1 = userService.findByUsername(user.getUsername());
         user1.setFullName(user.getFullName());
         user1.setAddress(user.getAddress());
         user1.setEmail(user.getEmail());
-        user1.setAvatar(user.getAvatar());
+//        user1.setAvatar(user.getAvatar());
 //        user1.setUsername(user.getUsername());
         userService.save(user1);
         return new ResponseEntity<>(HttpStatus.OK);
