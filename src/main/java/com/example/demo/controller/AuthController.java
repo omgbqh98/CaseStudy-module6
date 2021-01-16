@@ -94,24 +94,4 @@ public class AuthController {
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-//=======
-//    cap nhat mat khau
-//@PutMapping("/changePassword/{id}")
-//public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable Long id) {
-//    Optional<User> userOptional = userService.findById(id);
-//    if (!userOptional.isPresent()) {
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//>>>>>>> 909aa3511a1d73656efc9c0ee2571584615b74d9
-//    }
-//    String newPass = passwordEncoder.encode(user.getPassword());
-//    user.setUserId(userOptional.get().getUserId());
-//    user.setFullName(userOptional.get().getFullName());
-//    user.setPhone(userOptional.get().getPhone());
-//    user.setAvatar(userOptional.get().getAvatar());
-//    user.setUsername(userOptional.get().getUsername());
-//    user.setAddress(userOptional.get().getAddress());
-//    user.setPassword(newPass);
-//    userService.save(user);
-//    return new ResponseEntity<>(HttpStatus.OK);
-//}
 }
