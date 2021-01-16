@@ -1,8 +1,5 @@
 package com.example.demo.service.house;
 
-<<<<<<< HEAD
-public class HouseServiceImpl {
-=======
 import com.example.demo.model.House;
 import com.example.demo.repository.IHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +39,4 @@ public class HouseServiceImpl implements IHouseService{
     public Iterable<House> findAllByOwnerIdAndDeletedFalse(long ownerId) {
         return houseRepository.findAllByOwnerIdAndDeletedFalse(ownerId);
     }
->>>>>>> 909aa3511a1d73656efc9c0ee2571584615b74d9
 }
