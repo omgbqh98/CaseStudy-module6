@@ -71,23 +71,25 @@ public class AuthController {
     }
     //lay User bang username
     @GetMapping("/{username}")
-    public User findUserName(@PathVariable("username") String username) {
+    public ResponseEntity<User> findUserName(@PathVariable("username") String username) {
         User user = userService.findByUsername(username);
-        return user;
+        return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
 
-//    cap nhat mat khau
-    @PutMapping("/changePassword/{username}")
-    public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable String username) {
-        User userOptional = userService.findByUsername(username);
+    @PutMapping("/changePassword/{id}")
+    public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        if (!userOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         String newPass = passwordEncoder.encode(user.getPassword());
-        user.setUserId(userOptional.getUserId());
-        user.setFullName(userOptional.getFullName());
-        user.setPhone(userOptional.getPhone());
-        user.setAvatar(userOptional.getAvatar());
-        user.setUsername(userOptional.getUsername());
-        user.setAddress(userOptional.getAddress());
+        user.setUserId(userOptional.get().getUserId());
+        user.setFullName(userOptional.get().getFullName());
+        user.setPhone(userOptional.get().getPhone());
+        user.setAvatar(userOptional.get().getAvatar());
+        user.setUsername(userOptional.get().getUsername());
+        user.setAddress(userOptional.get().getAddress());
         user.setPassword(newPass);
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.OK);

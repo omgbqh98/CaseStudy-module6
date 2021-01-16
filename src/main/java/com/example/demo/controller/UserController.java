@@ -31,11 +31,11 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
     //lay User bang username
-    @GetMapping("/{username}")
-    public User findUserName(@PathVariable("username") String username) {
-        User user = userService.findByUsername(username);
-        return user;
-    }
+//    @GetMapping("/{username}")
+//    public ResponseEntity<User> findUserName(@PathVariable("username") String username) {
+//        User user = userService.findByUsername(username);
+//        return new ResponseEntity<>(user,HttpStatus.OK);
+//    }
     //lay user bằng usename
     @GetMapping("/{id}")
     public Optional<User> findCustomer(@PathVariable("id") Long id) {
@@ -51,6 +51,17 @@ public class UserController {
         user.setPassword(userOptional.getPassword());
         user.setUserId(userOptional.getUserId());
         userService.save(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PutMapping("/update")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        User user1 = userService.findByUsername(user.getUsername());
+        user1.setFullName(user.getFullName());
+        user1.setAddress(user.getAddress());
+        user1.setEmail(user.getEmail());
+        user1.setAvatar(user.getAvatar());
+//        user1.setUsername(user.getUsername());
+        userService.save(user1);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
