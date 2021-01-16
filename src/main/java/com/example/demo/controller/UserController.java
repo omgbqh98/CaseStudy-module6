@@ -52,7 +52,7 @@ public class UserController {
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
 
-    //cap nhat profile
+    // Cập nhật thông tin user
     @PutMapping("/{username}")
     public ResponseEntity<User> updateProfile(@PathVariable String username, @RequestBody User user) {
         User userOptional = this.userService.findByUsername(username);
