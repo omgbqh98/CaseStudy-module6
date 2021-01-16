@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.House;
 import com.example.demo.model.User;
+import com.example.demo.service.house.IHouseService;
 import com.example.demo.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -22,6 +24,9 @@ public class UserController {
     IUserService userService;
 
     @Autowired
+    IHouseService houseService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
@@ -30,6 +35,7 @@ public class UserController {
         Iterable<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+<<<<<<< HEAD
     //lay User bang username
 //    @GetMapping("/{username}")
 //    public ResponseEntity<User> findUserName(@PathVariable("username") String username) {
@@ -42,6 +48,24 @@ public class UserController {
         Optional<User> user = userService.findById(id);
         return userService.findById(user.get().getUserId());
     }
+=======
+
+    //    @PutMapping("/{id}")
+//    public ResponseEntity<User> updateProfile(@PathVariable Long id, @RequestBody User user) {
+//        Optional<User> userOptional = this.userService.findById(id);
+//        if (!userOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        user.setUserId(userOptional.get().getUserId());
+//        user.setFullName(userOptional.get().getFullName());
+//        user.setAddress(userOptional.get().getAddress());
+//        user.setEmail(userOptional.get().getEmail());
+//        user.setPhone(userOptional.get().getPhone());
+//
+//        userService.save(user);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
+>>>>>>> 909aa3511a1d73656efc9c0ee2571584615b74d9
 
     //cap nhat profile
 //    @PutMapping("/{username}")
@@ -78,6 +102,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+<<<<<<< HEAD
     //lay User bang username
 //    @GetMapping("/{username}")
 //    public ResponseEntity<User> findUserName(@PathVariable("username") String username) {
@@ -85,4 +110,14 @@ public class UserController {
 //        return new ResponseEntity<>(user,HttpStatus.OK);
 //>>>>>>> fb6943c... thêm API getUserByUserName
 //    }
+=======
+    // Tìm tất cả nhà của một chủ nhà
+    @GetMapping("/{id}/ownHouses")
+    public ResponseEntity<Iterable<House>> findHousesByOwnerId(@PathVariable long id){
+        Iterable<House> houses = houseService.findAllByOwnerIdAndDeletedFalse(id);
+        return new ResponseEntity<>(houses,HttpStatus.OK);
+    }
+
+
+>>>>>>> 909aa3511a1d73656efc9c0ee2571584615b74d9
 }

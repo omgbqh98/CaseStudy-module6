@@ -69,13 +69,13 @@ public class AuthController {
     public ResponseEntity<String> hello() {
         return new ResponseEntity<>("Hello", HttpStatus.OK);
     }
+
     //lay User bang username
     @GetMapping("/{username}")
     public ResponseEntity<User> findUserName(@PathVariable("username") String username) {
         User user = userService.findByUsername(username);
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
-
 
     @PutMapping("/changePassword/{id}")
     public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable Long id) {
@@ -94,4 +94,24 @@ public class AuthController {
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+//=======
+//    cap nhat mat khau
+//@PutMapping("/changePassword/{id}")
+//public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable Long id) {
+//    Optional<User> userOptional = userService.findById(id);
+//    if (!userOptional.isPresent()) {
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//>>>>>>> 909aa3511a1d73656efc9c0ee2571584615b74d9
+//    }
+//    String newPass = passwordEncoder.encode(user.getPassword());
+//    user.setUserId(userOptional.get().getUserId());
+//    user.setFullName(userOptional.get().getFullName());
+//    user.setPhone(userOptional.get().getPhone());
+//    user.setAvatar(userOptional.get().getAvatar());
+//    user.setUsername(userOptional.get().getUsername());
+//    user.setAddress(userOptional.get().getAddress());
+//    user.setPassword(newPass);
+//    userService.save(user);
+//    return new ResponseEntity<>(HttpStatus.OK);
+//}
 }

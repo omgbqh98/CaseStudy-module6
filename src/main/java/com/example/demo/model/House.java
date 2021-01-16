@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -13,22 +14,38 @@ public class House {
     private Long houseId;
     @NotEmpty
     private String houseName;
-    @NotEmpty
+    @NotNull
     private int type; // 0: phòng đơn (Single), 1: phòng đôi (double), 2: phòng tổng thống (president), 3: phòng VIP, 4: phòng Luxury
     @NotEmpty
     private String address;
     @NotEmpty
     private String description;
-    @NotEmpty
+    @NotNull
     private long price;
-    @NotEmpty
+    @NotNull
     private int bedroom;
-    @NotEmpty
+    @NotNull
     private int bathroom;
-    @NotEmpty
-    private int status; // 0: còn trống, 1: đã thuê, 2: đang nâng cấp
+    @NotNull
+    private int status; // 0: còn trống, 1: đã thuê, 2: đã checkin, 3: đang nâng cấp
     @ManyToOne
     private User ownerId;
     @Column(columnDefinition="BOOLEAN DEFAULT false")
     private boolean isDeleted;
+
+    public House(@NotEmpty String houseName, @NotEmpty int type, @NotEmpty String address, @NotEmpty String description, long price, @NotEmpty int bedroom, @NotEmpty int bathroom, @NotEmpty int status, User ownerId, boolean isDeleted) {
+        this.houseName = houseName;
+        this.type = type;
+        this.address = address;
+        this.description = description;
+        this.price = price;
+        this.bedroom = bedroom;
+        this.bathroom = bathroom;
+        this.status = status;
+        this.ownerId = ownerId;
+        this.isDeleted = isDeleted;
+    }
+
+    public House() {
+    }
 }
