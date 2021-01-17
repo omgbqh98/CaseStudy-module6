@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -32,6 +33,8 @@ public class House {
     private User ownerId;
     @Column(columnDefinition="BOOLEAN DEFAULT false")
     private boolean isDeleted;
+    private Timestamp createdAt;
+
 
     public House(@NotEmpty String houseName, @NotEmpty int type, @NotEmpty String address, @NotEmpty String description, long price, @NotEmpty int bedroom, @NotEmpty int bathroom, @NotEmpty int status, User ownerId, boolean isDeleted) {
         this.houseName = houseName;
@@ -45,6 +48,7 @@ public class House {
         this.ownerId = ownerId;
         this.isDeleted = isDeleted;
     }
+
     public House() {
     }
 }
