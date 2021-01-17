@@ -36,11 +36,13 @@ public class UserController {
     }
 
 
+
     @GetMapping("/{id}")
     public Optional<User> findCustomer(@PathVariable("id") Long id) {
         Optional<User> user = userService.findById(id);
         return userService.findById(user.get().getUserId());
     }
+
 
     // Cập nhật thông tin user
     @PutMapping("/update")
