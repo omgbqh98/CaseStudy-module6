@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -22,4 +23,5 @@ public class Booking {
     private Date checkOut;
     @NotEmpty
     private long total;
+    private Timestamp createdAt;
 }

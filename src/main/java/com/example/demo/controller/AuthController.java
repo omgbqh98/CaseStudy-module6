@@ -33,6 +33,7 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     //dang nhap
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
@@ -74,26 +75,26 @@ public class AuthController {
     @GetMapping("/{username}")
     public ResponseEntity<User> findUserName(@PathVariable("username") String username) {
         User user = userService.findByUsername(username);
-        return new ResponseEntity<>(user,HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 
-//    cap nhat mat khau
-@PutMapping("/changePassword/{id}")
-public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable Long id) {
-    Optional<User> userOptional = userService.findById(id);
-    if (!userOptional.isPresent()) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //    cap nhat mat khau
+    @PutMapping("/changePassword/{id}")
+    public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        if (!userOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        String newPass = passwordEncoder.encode(user.getPassword());
+        user.setUserId(userOptional.get().getUserId());
+        user.setFullName(userOptional.get().getFullName());
+        user.setPhone(userOptional.get().getPhone());
+        user.setAvatar(userOptional.get().getAvatar());
+        user.setUsername(userOptional.get().getUsername());
+        user.setAddress(userOptional.get().getAddress());
+        user.setPassword(newPass);
+        userService.save(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-    String newPass = passwordEncoder.encode(user.getPassword());
-    user.setUserId(userOptional.get().getUserId());
-    user.setFullName(userOptional.get().getFullName());
-    user.setPhone(userOptional.get().getPhone());
-    user.setAvatar(userOptional.get().getAvatar());
-    user.setUsername(userOptional.get().getUsername());
-    user.setAddress(userOptional.get().getAddress());
-    user.setPassword(newPass);
-    userService.save(user);
-    return new ResponseEntity<>(HttpStatus.OK);
-}
 }
