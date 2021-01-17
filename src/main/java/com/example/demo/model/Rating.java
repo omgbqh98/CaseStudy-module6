@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -23,4 +24,5 @@ public class Rating {
     private int rate;
     private String review;
     private long parentId;
+    private Timestamp createdAt;
 }

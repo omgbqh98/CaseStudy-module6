@@ -33,6 +33,7 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     //dang nhap
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
@@ -74,9 +75,11 @@ public class AuthController {
     @GetMapping("/{username}")
     public ResponseEntity<User> findUserName(@PathVariable("username") String username) {
         User user = userService.findByUsername(username);
-        return new ResponseEntity<>(user,HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+
+    //    cap nhat mat khau
     @PutMapping("/changePassword/{id}")
     public ResponseEntity<User> changePassword(@RequestBody User user, @PathVariable Long id) {
         Optional<User> userOptional = userService.findById(id);
