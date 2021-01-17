@@ -53,4 +53,12 @@ public class HouseController {
         return new ResponseEntity<>(bookings,HttpStatus.OK);
     }
 
+    // Update thông tin nhà
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<House> updateHouse(@PathVariable Long id, @RequestBody House house) {
+        house.setHouseId(id);
+        House updatedhouse = houseService.save(house);
+        return new ResponseEntity<>(updatedhouse, HttpStatus.OK);
+    }
 }
