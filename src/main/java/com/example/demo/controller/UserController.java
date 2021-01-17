@@ -49,6 +49,7 @@ public class UserController {
         user1.setAddress(user.getAddress());
         user1.setEmail(user.getEmail());
         user1.setPhone(user.getPhone());
+        user1.setAvatar(user.getAvatar());
         userService.save(user1);
         return new ResponseEntity<>(HttpStatus.OK);
     }
