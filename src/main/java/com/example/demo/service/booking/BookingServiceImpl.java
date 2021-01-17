@@ -17,6 +17,11 @@ public class BookingServiceImpl implements IBookingService{
     }
 
     @Override
+    public Iterable<Booking> findBookingByUserId(Long id) {
+        return bookingRepository.getAllByUserIdOrderByCreatedAt(id);
+    }
+
+    @Override
     public Iterable<Booking> findAll() {
         return null;
     }
