@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/houses")
@@ -30,6 +32,7 @@ public class HouseController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public House createHouse(@RequestBody House house) {
+        house.setCreatedAt(Timestamp.valueOf(java.time.LocalDateTime.now()));
         return houseService.save(house);
     }
 
