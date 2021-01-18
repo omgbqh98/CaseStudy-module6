@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Booking;
 import com.example.demo.model.House;
+import com.example.demo.model.Rating;
 import com.example.demo.service.booking.IBookingService;
 import com.example.demo.service.house.IHouseService;
+import com.example.demo.service.rating.IRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +22,8 @@ public class HouseController {
     private IHouseService houseService;
     @Autowired
     private IBookingService bookingService;
+    @Autowired
+    private IRatingService ratingService;
 
     // Lấy tất cả những nhà hiện tại
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -67,5 +71,13 @@ public class HouseController {
     private ResponseEntity<Iterable<House>> listNewHouse() {
         Iterable<House> houses = houseService.findAllByIsDeleteFalseOderByCreatedAt();
         return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
+
+    // Lấy tất cả bình luận của một nhà
+    @GetMapping(value = "/{id}/ratings",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Iterable<Rating>> findAllByHouseId_HouseId(@PathVariable Long id){
+        Iterable<Rating> ratings = ratingService.findAllByHouseId_HouseId(id);
+        return new ResponseEntity<>(ratings,HttpStatus.OK);
     }
 }
