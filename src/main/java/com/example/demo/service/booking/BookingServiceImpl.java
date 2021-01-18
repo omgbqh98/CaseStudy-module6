@@ -18,7 +18,7 @@ public class BookingServiceImpl implements IBookingService{
 
     @Override
     public Iterable<Booking> findBookingByUserId(Long id) {
-        return bookingRepository.getAllByUserIdOrderByCreatedAt(id);
+        return bookingRepository.findBookingByUserId(id);
     }
 
     @Override
@@ -39,10 +39,5 @@ public class BookingServiceImpl implements IBookingService{
     @Override
     public void remove(Long id) {
 
-    }
-
-    @Override
-    public Iterable<Booking> findBookingByUserId(Long id) {
-        return bookingRepository.findBookingByUserId(id);
     }
 }
