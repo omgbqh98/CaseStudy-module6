@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IRatingRepository extends JpaRepository<Rating, Long> {
-    Iterable<Rating> findAllByHouseId_HouseId(Long houseId);
+    Iterable<Rating> findAllByHouseId_HouseIdOrderByCreatedAtDesc(Long houseId);
 }

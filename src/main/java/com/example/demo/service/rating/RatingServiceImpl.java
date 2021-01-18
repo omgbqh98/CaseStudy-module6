@@ -14,7 +14,7 @@ public class RatingServiceImpl implements IRatingService{
 
     @Override
     public Iterable<Rating> findAllByHouseId_HouseId(Long houseId) {
-        return ratingRepository.findAllByHouseId_HouseId(houseId);
+        return ratingRepository.findAllByHouseId_HouseIdOrderByCreatedAtDesc(houseId);
     }
 
     @Override
