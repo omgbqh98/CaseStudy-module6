@@ -5,6 +5,5 @@ import com.example.demo.service.IGeneralService;
 
 public interface IBookingService extends IGeneralService<Booking> {
     Iterable<Booking> findBookingByHouseId(Long id);
-
     Iterable<Booking> findBookingByUserId(Long id);
 }

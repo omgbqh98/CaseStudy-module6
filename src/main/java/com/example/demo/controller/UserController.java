@@ -41,8 +41,6 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-
-
     @GetMapping("/{id}")
     public Optional<User> findCustomer(@PathVariable("id") Long id) {
         Optional<User> user = userService.findById(id);
@@ -70,10 +68,12 @@ public class UserController {
         Iterable<House> houses = houseService.findAllByOwnerIdAndDeletedFalse(id);
         return new ResponseEntity<>(houses,HttpStatus.OK);
     }
-    //lich sử booking
+
+    //lich su booking
     @GetMapping("/{id}/booking")
-    public ResponseEntity<Iterable<Booking>> findBookingByUserId(@PathVariable long id) {
+    public ResponseEntity<Iterable<Booking>> findBookingByUserId(@PathVariable Long id) {
         Iterable<Booking> bookings = bookingService.findBookingByUserId(id);
-        return new  ResponseEntity<>(bookings, HttpStatus.OK);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
+
     }
 }
