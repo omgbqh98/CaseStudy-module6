@@ -11,4 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface IBookingRepository extends JpaRepository<Booking,Long> {
     @Query(value = "select * from booking where house_id_house_id = :id order by check_in desc;",nativeQuery = true)
     Iterable<Booking> findBookingByHouseId(@Param("id") Long id);
+
+    @Query(value = "select * from booking where user_id_user_id = :id order by created_at asc;",nativeQuery = true)
+    Iterable<Booking> findBookingByUserId(@Param("id") Long id);
 }

@@ -35,4 +35,9 @@ public class BookingServiceImpl implements IBookingService{
     public void remove(Long id) {
 
     }
+
+    @Override
+    public Iterable<Booking> findBookingByUserId(Long id) {
+        return bookingRepository.findBookingByUserId(id);
+    }
 }

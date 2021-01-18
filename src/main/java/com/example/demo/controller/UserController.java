@@ -1,6 +1,8 @@
 package com.example.demo.controller;
+import com.example.demo.model.Booking;
 import com.example.demo.model.House;
 import com.example.demo.model.User;
+import com.example.demo.service.booking.IBookingService;
 import com.example.demo.service.house.IHouseService;
 import com.example.demo.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class UserController {
     IHouseService houseService;
 
     @Autowired
+    IBookingService bookingService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
@@ -34,8 +39,6 @@ public class UserController {
         Iterable<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
-
 
     @GetMapping("/{id}")
     public Optional<User> findCustomer(@PathVariable("id") Long id) {
@@ -63,5 +66,12 @@ public class UserController {
     public ResponseEntity<Iterable<House>> findHousesByOwnerId(@PathVariable long id){
         Iterable<House> houses = houseService.findAllByOwnerIdAndDeletedFalse(id);
         return new ResponseEntity<>(houses,HttpStatus.OK);
+    }
+
+    //lich su booking
+    @GetMapping("/{id}/booking")
+    public ResponseEntity<Iterable<Booking>> findBookingByUserId(@PathVariable Long id) {
+        Iterable<Booking> bookings = bookingService.findBookingByUserId(id);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 }
