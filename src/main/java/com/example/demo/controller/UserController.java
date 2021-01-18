@@ -2,6 +2,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Booking;
 import com.example.demo.model.House;
 import com.example.demo.model.User;
+import com.example.demo.repository.IBookingRepository;
 import com.example.demo.service.booking.IBookingService;
 import com.example.demo.service.house.IHouseService;
 import com.example.demo.service.user.IUserService;
@@ -73,5 +74,6 @@ public class UserController {
     public ResponseEntity<Iterable<Booking>> findBookingByUserId(@PathVariable Long id) {
         Iterable<Booking> bookings = bookingService.findBookingByUserId(id);
         return new ResponseEntity<>(bookings, HttpStatus.OK);
+
     }
 }
