@@ -61,4 +61,11 @@ public class HouseController {
         House updatedhouse = houseService.save(house);
         return new ResponseEntity<>(updatedhouse, HttpStatus.OK);
     }
+
+    //danh sach nhà mới đăng
+    @GetMapping("/listHouseNew")
+    private ResponseEntity<Iterable<House>> listNewHouse() {
+        Iterable<House> houses = houseService.findAllByIsDeleteFalseOderByCreatedAt();
+        return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
 }

@@ -29,6 +29,8 @@ public class House {
     private int bathroom;
     @NotNull
     private int status; // 0: còn trống, 1: đã thuê, 2: đã checkin, 3: đang nâng cấp
+    @NotNull
+    private String avatar;
     @ManyToOne
     private User ownerId;
     @Column(columnDefinition="BOOLEAN DEFAULT false")
@@ -36,7 +38,7 @@ public class House {
     private Timestamp createdAt;
 
 
-    public House(@NotEmpty String houseName, @NotEmpty int type, @NotEmpty String address, @NotEmpty String description, long price, @NotEmpty int bedroom, @NotEmpty int bathroom, @NotEmpty int status, User ownerId, boolean isDeleted) {
+    public House(@NotEmpty String houseName, @NotEmpty int type, @NotEmpty String address, @NotEmpty String description, long price, @NotEmpty int bedroom, @NotEmpty int bathroom, @NotEmpty int status, User ownerId, boolean isDeleted, String avatar) {
         this.houseName = houseName;
         this.type = type;
         this.address = address;
@@ -59,7 +61,6 @@ public class House {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
-
 
     public Long getHouseId() {
         return houseId;
@@ -149,4 +150,11 @@ public class House {
         isDeleted = deleted;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 }
