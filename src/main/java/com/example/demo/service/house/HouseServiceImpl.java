@@ -39,4 +39,9 @@ public class HouseServiceImpl implements IHouseService{
     public Iterable<House> findAllByOwnerIdAndDeletedFalse(long ownerId) {
         return houseRepository.findAllByOwnerIdAndDeletedFalse(ownerId);
     }
+
+    @Override
+    public Iterable<House> findAllByIsDeleteFalseOderByCreatedAt() {
+        return houseRepository.findAllByIsDeletedFalseOderByCreatedAt();
+    }
 }

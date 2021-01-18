@@ -14,4 +14,8 @@ public interface IHouseRepository extends JpaRepository<House, Long> {
     // Tìm toàn bộ nhà bằng ownerId
     @Query(value = "select * from house where owner_Id_user_id = :id  and is_Deleted = 0",nativeQuery = true)
     Iterable<House> findAllByOwnerIdAndDeletedFalse(@Param("id") Long id);
+
+    // Tìm toàn bộ nhà mới đăng
+    @Query(value = "select * from house  order by created_at desc;",nativeQuery = true)
+    Iterable<House> findAllByIsDeletedFalseOderByCreatedAt();
 }
