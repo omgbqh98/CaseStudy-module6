@@ -41,6 +41,15 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+
+
+    @GetMapping("/{id}")
+    public Optional<User> findCustomer(@PathVariable("id") Long id) {
+        Optional<User> user = userService.findById(id);
+        return userService.findById(user.get().getUserId());
+    }
+
+
     // Cập nhật thông tin user
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
@@ -54,6 +63,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
     // Tìm tất cả nhà của một chủ nhà
     @GetMapping("/{id}/ownHouses")
     public ResponseEntity<Iterable<House>> findHousesByOwnerId(@PathVariable long id){
@@ -61,7 +71,7 @@ public class UserController {
         return new ResponseEntity<>(houses,HttpStatus.OK);
     }
     //lich sử booking
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/booking")
     public ResponseEntity<Iterable<Booking>> findBookingByUserId(@PathVariable long id) {
         Iterable<Booking> bookings = bookingService.findBookingByUserId(id);
         return new  ResponseEntity<>(bookings, HttpStatus.OK);

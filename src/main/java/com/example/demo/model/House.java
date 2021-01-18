@@ -60,6 +60,7 @@ public class House {
         this.createdAt = createdAt;
     }
 
+
     public Long getHouseId() {
         return houseId;
     }
@@ -147,4 +148,5 @@ public class House {
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
+
 }
