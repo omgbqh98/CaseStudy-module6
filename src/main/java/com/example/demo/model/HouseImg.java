@@ -15,5 +15,4 @@ public class HouseImg {
     private String link;
     @Column(columnDefinition="BOOLEAN DEFAULT false")
     private boolean isAvatar;
-
 }
