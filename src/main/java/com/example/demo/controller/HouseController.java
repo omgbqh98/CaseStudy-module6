@@ -80,4 +80,12 @@ public class HouseController {
         Iterable<Rating> ratings = ratingService.findAllByHouseId_HouseId(id);
         return new ResponseEntity<>(ratings,HttpStatus.OK);
     }
+
+    // Lấy tất cả bình luận CHA của một nhà
+    @GetMapping(value = "/{id}/parentRatings",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Iterable<Rating>> findAllParentRatingByHouse(@PathVariable Long id){
+        Iterable<Rating> ratings = ratingService.findAllParentRatingByHouse(id);
+        return new ResponseEntity<>(ratings,HttpStatus.OK);
+    }
 }

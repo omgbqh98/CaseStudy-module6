@@ -8,5 +8,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface IRatingService extends IGeneralService<Rating> {
     Iterable<Rating> findAllByHouseId_HouseId(Long houseId);
-    Iterable<Booking> findAllParentRatingByHouse(Long id);
+    Iterable<Rating> findAllParentRatingByHouse(Long id);
 }
