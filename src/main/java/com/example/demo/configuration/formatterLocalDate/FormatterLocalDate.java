@@ -24,12 +24,4 @@ public class FormatterLocalDate implements Formatter<LocalDate>, org.springframe
     public String print(Object object, Locale locale) {
         return null;
     }
-//    @Override
-//    public LocalDate parse(String text, Locale locale) throws ParseException {
-//        return LocalDate.parse(text, DateTimeFormatter.ofPattern(datePattern));
-//    }
-//    @Override
-//    public String print(LocalDate date, Locale locale) {
-//        return date.format(dateTimeFormatter);
-//    }
 }
