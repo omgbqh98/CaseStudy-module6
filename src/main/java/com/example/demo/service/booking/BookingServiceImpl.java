@@ -22,6 +22,11 @@ public class BookingServiceImpl implements IBookingService{
     }
 
     @Override
+    public void delete(Long id) {
+    bookingRepository.deleteById(id);
+    }
+
+    @Override
     public Iterable<Booking> findAll() {
         return null;
     }
@@ -33,11 +38,11 @@ public class BookingServiceImpl implements IBookingService{
 
     @Override
     public Optional<Booking> findById(Long id) {
-        return Optional.empty();
+        return bookingRepository.findById(id);
     }
 
     @Override
     public void remove(Long id) {
-
+    bookingRepository.deleteById(id);
     }
 }
