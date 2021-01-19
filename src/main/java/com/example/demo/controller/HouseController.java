@@ -13,6 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -22,6 +26,8 @@ public class HouseController {
     private IHouseService houseService;
     @Autowired
     private IBookingService bookingService;
+    private long oneDay = 8640000;
+//    private long oneDay =117280000;
     @Autowired
     private IRatingService ratingService;
 
@@ -32,7 +38,7 @@ public class HouseController {
         return houseService.findAllByIsDeletedFalse();
     }
 
-     //Tạo mới nhà
+    //Tạo mới nhà
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public House createHouse(@RequestBody House house) {
@@ -50,11 +56,11 @@ public class HouseController {
     }
 
     // Xem booking của một nhà
-    @GetMapping(value="/{id}/bookings",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}/bookings", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Iterable<Booking>> getBookingByHouseId(@PathVariable Long id){
+    public ResponseEntity<Iterable<Booking>> getBookingByHouseId(@PathVariable Long id) {
         Iterable<Booking> bookings = bookingService.findBookingByHouseId(id);
-        return new ResponseEntity<>(bookings,HttpStatus.OK);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 
     // Update thông tin nhà
@@ -72,6 +78,32 @@ public class HouseController {
         Iterable<House> houses = houseService.findAllByIsDeleteFalseOderByCreatedAt();
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
+
+
+    //huy booking truoc 1 ngay
+    @DeleteMapping("cancel/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") Long id) {
+        Optional<Booking> booking = bookingService.findById(id);
+        if (booking == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        long orderTime = booking.get().getCheckIn().getTime();
+        long currentTime = date.getTime();
+        long timeDemo = orderTime - currentTime;
+        if (timeDemo > oneDay && timeDemo > 0) {
+            bookingService.delete(id);
+            Optional<House> house1 = houseService.findById(booking.get().getHouseId().getHouseId());
+            house1.get().setStatus(0);
+            houseService.save(house1.get());
+//            booking.get().setHouseId(booking.get().getHouseId().setStatus(0));
+        } else {
+            return new ResponseEntity<>("Không thể xoá", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("Thành Công", HttpStatus.OK);
+    }
+
 
     // Lấy tất cả bình luận của một nhà
     @GetMapping(value = "/{id}/ratings",produces = MediaType.APPLICATION_JSON_VALUE)
