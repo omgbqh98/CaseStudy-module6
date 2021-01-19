@@ -89,6 +89,14 @@ public class HouseController {
         return new ResponseEntity<>(ratings,HttpStatus.OK);
     }
 
+    // Lấy tất cả bình luận CON của một nhà
+    @GetMapping(value = "/{id}/childRatings",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Iterable<Rating>> findAllChildRatingByHouse(@PathVariable Long id){
+        Iterable<Rating> ratings = ratingService.findAllChildRatingByHouse(id);
+        return new ResponseEntity<>(ratings,HttpStatus.OK);
+    }
+
     // Lấy tất cả bình luận CON theo bình luận cha
     @GetMapping(value = "/childRatings/{parentId}",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -96,4 +104,5 @@ public class HouseController {
         Iterable<Rating> ratings = ratingService.findAllChildRatingByParentRating(parentId);
         return new ResponseEntity<>(ratings,HttpStatus.OK);
     }
+
 }

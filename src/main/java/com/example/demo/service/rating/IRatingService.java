@@ -10,4 +10,6 @@ public interface IRatingService extends IGeneralService<Rating> {
     Iterable<Rating> findAllByHouseId_HouseId(Long houseId);
     Iterable<Rating> findAllParentRatingByHouse(Long id);
     Iterable<Rating> findAllChildRatingByParentRating(Long id);
+    Iterable<Rating> findAllByHouseIdParentIdDesc(Long id);
+    Iterable<Rating> findAllChildRatingByHouse(Long id);
 }

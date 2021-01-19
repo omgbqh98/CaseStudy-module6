@@ -46,4 +46,14 @@ public class RatingServiceImpl implements IRatingService{
     public Iterable<Rating> findAllChildRatingByParentRating(Long id) {
         return ratingRepository.findAllChildRatingByParentRating(id);
     }
+
+    @Override
+    public Iterable<Rating> findAllByHouseIdParentIdDesc(Long id) {
+        return ratingRepository.findAllByHouseIdParentIdDesc(id);
+    }
+
+    @Override
+    public Iterable<Rating> findAllChildRatingByHouse(Long id) {
+        return ratingRepository.findAllChildRatingByHouse(id);
+    }
 }
