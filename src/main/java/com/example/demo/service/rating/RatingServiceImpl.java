@@ -1,5 +1,6 @@
 package com.example.demo.service.rating;
 
+import com.example.demo.model.Booking;
 import com.example.demo.model.Rating;
 import com.example.demo.repository.IRatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,10 @@ public class RatingServiceImpl implements IRatingService{
 
     @Override
     public void remove(Long id) {
+    }
 
+    @Override
+    public Iterable<Booking> findAllParentRatingByHouse(Long id) {
+        return ratingRepository.findAllParentRatingByHouse(id);
     }
 }
