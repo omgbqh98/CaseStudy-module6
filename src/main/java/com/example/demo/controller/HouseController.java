@@ -78,10 +78,14 @@ public class HouseController {
         Iterable<House> houses = houseService.findAllByIsDeleteFalseOderByCreatedAt();
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
-
-
+    //lay booking theo id
+    @GetMapping("/getBooking/{id}")
+    public ResponseEntity<Optional<Booking>> findBookingById(@PathVariable Long id) {
+        Optional<Booking> booking = bookingService.findById(id);
+        return new ResponseEntity<>(booking, HttpStatus.OK);
+    }
     //huy booking truoc 1 ngay
-    @DeleteMapping("cancel/{id}")
+    @DeleteMapping("/cancel/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
         Optional<Booking> booking = bookingService.findById(id);
         if (booking == null) {
@@ -136,5 +140,13 @@ public class HouseController {
         Iterable<Rating> ratings = ratingService.findAllChildRatingByParentRating(parentId);
         return new ResponseEntity<>(ratings,HttpStatus.OK);
     }
-
+    //checkIn nha trong history booking
+    @GetMapping("/checkIn/{id}")
+    public ResponseEntity<String> checkIn(@PathVariable Long id) {
+        Optional<Booking> booking = bookingService.findById(id);
+        Optional<House> house = houseService.findById(booking.get().getHouseId().getHouseId());
+        house.get().setStatus(1);
+        houseService.save(house.get());
+        return new ResponseEntity<>( HttpStatus.OK);
+    }
 }
