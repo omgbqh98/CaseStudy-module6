@@ -16,4 +16,9 @@ public interface IRatingRepository extends JpaRepository<Rating, Long> {
     @Query(value = "select * from rating where rating_id = parent_id AND house_id_house_id = :id order by created_at desc;",nativeQuery = true)
     Iterable<Rating> findAllParentRatingByHouse(@Param("id") Long id);
 
+
+    // Lấy tất cả feedback con theo feedback cha
+    @Query(value = "select * from rating where parent_id = :? and rating_id != parent_id order by created_at asc;", nativeQuery = true)
+    Iterable<Rating> findAllChildRatingByParentRating(@Param("id") Long id);
+
 }
