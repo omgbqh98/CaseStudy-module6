@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class BookingServiceImpl implements IBookingService{
+public class BookingServiceImpl implements IBookingService {
     @Autowired
     private IBookingRepository bookingRepository;
     @Override
@@ -22,19 +22,15 @@ public class BookingServiceImpl implements IBookingService{
     }
 
     @Override
-    public void delete(Long id) {
-    bookingRepository.deleteById(id);
+    public Booking save(Booking booking) {
+        return bookingRepository.save(booking);
     }
 
     @Override
     public Iterable<Booking> findAll() {
-        return null;
+        return bookingRepository.findAll();
     }
 
-    @Override
-    public Booking save(Booking booking) {
-        return null;
-    }
 
     @Override
     public Optional<Booking> findById(Long id) {

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface IBookingService extends IGeneralService<Booking> {
     Iterable<Booking> findBookingByHouseId(Long id);
+
     Iterable<Booking> findBookingByUserId(Long id);
 
     void delete(Long id);
