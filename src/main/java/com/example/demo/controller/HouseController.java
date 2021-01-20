@@ -184,12 +184,16 @@ public class HouseController {
     @GetMapping("/empty/{id}")
     public ResponseEntity<String> empty(@PathVariable Long id) {
         House house = houseService.findById(id).get();
-        if (house.getStatus() == 1) {
-            return new ResponseEntity<>("ko the doi", HttpStatus.BAD_GATEWAY);
-        } else {
-            house.setStatus(0);
-            houseService.save(house);
-            return new ResponseEntity<>("thanh cong", HttpStatus.OK);
-        }
+        house.setStatus(0);
+        houseService.save(house);
+        return new ResponseEntity<>("thanh cong", HttpStatus.OK);
+//        House house = houseService.findById(id).get();
+//        if (house.getStatus() == 1) {
+//            return new ResponseEntity<>("ko the doi", HttpStatus.BAD_GATEWAY);
+//        } else {
+//            house.setStatus(0);
+//            houseService.save(house);
+//            return new ResponseEntity<>("thanh cong", HttpStatus.OK);
+//        }
     }
 }
