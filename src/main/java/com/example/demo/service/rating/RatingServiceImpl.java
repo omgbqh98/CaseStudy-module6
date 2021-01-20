@@ -88,4 +88,11 @@ public class RatingServiceImpl implements IRatingService{
         Iterable<User> userList = users;
         return userList;
     }
+
+    @Override
+    public Rating createComment(Long id, Rating rating) {
+        rating.setParentId(id);
+        rating.setRate(0);
+        return ratingRepository.save(rating);
+    }
 }

@@ -18,8 +18,8 @@ public class Rating {
     private User userId;
     @ManyToOne
     private House houseId;
-    @Min(1)
-    @Max(5)
+//    @Min(1)
+//    @Max(5)
     @NotEmpty
     private int rate;
     private String review;
