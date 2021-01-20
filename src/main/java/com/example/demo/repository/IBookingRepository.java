@@ -14,4 +14,8 @@ public interface IBookingRepository extends JpaRepository<Booking,Long> {
 
     @Query(value = "select * from booking where user_id_user_id = :id order by created_at asc;",nativeQuery = true)
     Iterable<Booking> findBookingByUserId(@Param("id") Long id);
+
+    // Lấy tất cả những booking đã checkout của một người
+    @Query(value = "select * from booking where check_out <= CURDATE() AND user_id_user_id = :id;", nativeQuery = true)
+    Booking findCheckedOutBookingByUser(@Param("id") Long id);
 }

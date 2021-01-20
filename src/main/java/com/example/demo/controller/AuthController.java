@@ -97,4 +97,10 @@ public class AuthController {
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    //API nhận Google token
+    @PostMapping("/googleSignIn")
+    public ResponseEntity<?> receiveGoogletoken(@RequestBody String token){
+        return ResponseEntity.ok(token);
+    }
 }
