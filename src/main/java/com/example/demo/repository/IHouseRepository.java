@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.House;
+import com.example.demo.model.HouseImg;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +19,5 @@ public interface IHouseRepository extends JpaRepository<House, Long> {
     // Tìm toàn bộ nhà mới đăng
     @Query(value = "select * from house  order by created_at desc;",nativeQuery = true)
     Iterable<House> findAllByIsDeletedFalseOderByCreatedAt();
+
 }
