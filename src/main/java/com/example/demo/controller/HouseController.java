@@ -27,7 +27,7 @@ public class HouseController {
     @Autowired
     private IBookingService bookingService;
     private long oneDay = 8640000;
-//    private long oneDay =117280000;
+    //    private long oneDay =117280000;
     @Autowired
     private IRatingService ratingService;
 
@@ -78,12 +78,14 @@ public class HouseController {
         Iterable<House> houses = houseService.findAllByIsDeleteFalseOderByCreatedAt();
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
+
     //lay booking theo id
     @GetMapping("/getBooking/{id}")
     public ResponseEntity<Optional<Booking>> findBookingById(@PathVariable Long id) {
         Optional<Booking> booking = bookingService.findById(id);
         return new ResponseEntity<>(booking, HttpStatus.OK);
     }
+
     //huy booking truoc 1 ngay
     @DeleteMapping("/cancel/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
@@ -105,41 +107,42 @@ public class HouseController {
         } else {
             return new ResponseEntity<>("Không thể xoá", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Thành Công", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
     // Lấy tất cả bình luận của một nhà
-    @GetMapping(value = "/{id}/ratings",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}/ratings", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Iterable<Rating>> findAllByHouseId_HouseId(@PathVariable Long id){
+    public ResponseEntity<Iterable<Rating>> findAllByHouseId_HouseId(@PathVariable Long id) {
         Iterable<Rating> ratings = ratingService.findAllByHouseId_HouseId(id);
-        return new ResponseEntity<>(ratings,HttpStatus.OK);
+        return new ResponseEntity<>(ratings, HttpStatus.OK);
     }
 
     // Lấy tất cả bình luận CHA của một nhà
-    @GetMapping(value = "/{id}/parentRatings",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}/parentRatings", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Iterable<Rating>> findAllParentRatingByHouse(@PathVariable Long id){
+    public ResponseEntity<Iterable<Rating>> findAllParentRatingByHouse(@PathVariable Long id) {
         Iterable<Rating> ratings = ratingService.findAllParentRatingByHouse(id);
-        return new ResponseEntity<>(ratings,HttpStatus.OK);
+        return new ResponseEntity<>(ratings, HttpStatus.OK);
     }
 
     // Lấy tất cả bình luận CON của một nhà
-    @GetMapping(value = "/{id}/childRatings",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}/childRatings", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Iterable<Rating>> findAllChildRatingByHouse(@PathVariable Long id){
+    public ResponseEntity<Iterable<Rating>> findAllChildRatingByHouse(@PathVariable Long id) {
         Iterable<Rating> ratings = ratingService.findAllChildRatingByHouse(id);
-        return new ResponseEntity<>(ratings,HttpStatus.OK);
+        return new ResponseEntity<>(ratings, HttpStatus.OK);
     }
 
     // Lấy tất cả bình luận CON theo bình luận cha
-    @GetMapping(value = "/childRatings/{parentId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/childRatings/{parentId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Iterable<Rating>> findAllChildRatingByParentRating(@PathVariable Long parentId){
+    public ResponseEntity<Iterable<Rating>> findAllChildRatingByParentRating(@PathVariable Long parentId) {
         Iterable<Rating> ratings = ratingService.findAllChildRatingByParentRating(parentId);
-        return new ResponseEntity<>(ratings,HttpStatus.OK);
+        return new ResponseEntity<>(ratings, HttpStatus.OK);
     }
+
     //checkIn nha trong history booking
     @GetMapping("/checkIn/{id}")
     public ResponseEntity<String> checkIn(@PathVariable Long id) {
@@ -147,6 +150,46 @@ public class HouseController {
         Optional<House> house = houseService.findById(booking.get().getHouseId().getHouseId());
         house.get().setStatus(1);
         houseService.save(house.get());
-        return new ResponseEntity<>( HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //doi trang thai nha sang dang nang cap
+    @GetMapping("/upgrade/{id}")
+    public ResponseEntity<String> upgrade(@PathVariable Long id) {
+        House house = houseService.findById(id).get();
+        house.setStatus(3);
+        houseService.save(house);
+        return new ResponseEntity<>("thanh cong", HttpStatus.OK);
+    }
+
+    //doi trang thai nha sang đã thuê
+    @GetMapping("hired/{id}")
+    public ResponseEntity<String> hired(@PathVariable Long id) {
+        House house = houseService.findById(id).get();
+        house.setStatus(1);
+        houseService.save(house);
+        return new ResponseEntity<>("thanh cong", HttpStatus.OK);
+    }
+
+    //doi trang thai nha sang da checkin
+    @GetMapping("/checkedIn/{id}")
+    public ResponseEntity<String> checkedIn(@PathVariable Long id) {
+        House house = houseService.findById(id).get();
+        house.setStatus(2);
+        houseService.save(house);
+        return new ResponseEntity<>("thanh cong", HttpStatus.OK);
+    }
+
+    //doi trang thai nha sang con trong
+    @GetMapping("/empty/{id}")
+    public ResponseEntity<String> empty(@PathVariable Long id) {
+        House house = houseService.findById(id).get();
+        if (house.getStatus() == 1) {
+            return new ResponseEntity<>("ko the doi", HttpStatus.BAD_GATEWAY);
+        } else {
+            house.setStatus(0);
+            houseService.save(house);
+            return new ResponseEntity<>("thanh cong", HttpStatus.OK);
+        }
     }
 }
