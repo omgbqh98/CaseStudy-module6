@@ -23,7 +23,7 @@ public class Booking {
     @NotNull
     private Date checkOut;
     @NotNull
-    private Long total;
+    private long total;
     private Timestamp createdAt;
 
     public Long getBookingId() {

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -22,8 +23,14 @@ public class BookingController {
     }
 
     @GetMapping(value = "list-booking")
-    public ResponseEntity<List<Booking>> getAllBooking() {
-        List<Booking> list = (List<Booking>) iBookingService.findAll();
+    public ResponseEntity<Iterable<Booking>> getAllBooking() {
+        Iterable<Booking> list = iBookingService.findAll();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "list-booking-by-houseId/{id}")
+    public ResponseEntity<List<Booking>> getAllBookingByHouseId(@PathVariable Long id) {
+        List<Booking> list = (List<Booking>) iBookingService.findBookingByHouseId(id);
         if (list.isEmpty()) {
             return new ResponseEntity<List<Booking>>(HttpStatus.NO_CONTENT);
         }
