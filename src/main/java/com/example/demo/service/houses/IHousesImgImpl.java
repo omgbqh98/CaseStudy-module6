@@ -1,6 +1,7 @@
 package com.example.demo.service.houses;
 
 
+import com.example.demo.model.House;
 import com.example.demo.model.HouseImg;
 import com.example.demo.repository.IHousesImgRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class IHousesImgImpl implements IHousesImgService {
     IHousesImgRepository iHousesImgRepository;
     @Override
     public Iterable<HouseImg> findAll() {
-        return null;
+        return iHousesImgRepository.findAll();
     }
 
     @Override
@@ -24,11 +25,17 @@ public class IHousesImgImpl implements IHousesImgService {
 
     @Override
     public Optional<HouseImg> findById(Long id) {
-        return Optional.empty();
+        return iHousesImgRepository.findById(id);
     }
 
     @Override
     public void remove(Long id) {
+iHousesImgRepository.deleteById(id);
+    }
 
+
+    @Override
+    public Iterable<HouseImg> findAllByHouseId(House house) {
+        return iHousesImgRepository.findAllByHouseId(house);
     }
 }
