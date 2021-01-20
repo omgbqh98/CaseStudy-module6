@@ -67,7 +67,14 @@ public class RatingServiceImpl implements IRatingService{
 
     @Override
     public Iterable<User> findCheckoutUserByHouse(Long id) {
-        return ratingRepository.findCheckoutUserByHouse(id);
+        Iterable<BigInteger> userId = ratingRepository.findCheckoutUserByHouse(id);
+        List<User> users = new ArrayList<>();
+        for(BigInteger oneId: userId){
+            Long idLong = oneId.longValue();
+            users.add(userService.findById(idLong).get());
+        }
+        Iterable<User> userList = users;
+        return userList;
     }
 
     @Override

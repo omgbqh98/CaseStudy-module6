@@ -215,4 +215,11 @@ public class HouseController {
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
+    // Lấy tất cả user đã checkout
+    @GetMapping(value = "/{id}/checkedOutUser", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Iterable<User>> findCheckedOutUserByHouse(@PathVariable Long id){
+        Iterable<User> users = ratingService.findCheckoutUserByHouse(id);
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
 }
