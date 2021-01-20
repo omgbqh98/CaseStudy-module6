@@ -230,5 +230,4 @@ public class HouseController {
         Rating newRating = ratingService.save(rating);
         return new ResponseEntity<>(newRating,HttpStatus.OK);
     }
-
 }
