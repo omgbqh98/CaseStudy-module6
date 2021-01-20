@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -17,11 +18,11 @@ public class Booking {
     private House houseId;
     @ManyToOne
     private User userId;
-    @NotEmpty
+    @NotNull
     private Date checkIn;
-    @NotEmpty
+    @NotNull
     private Date checkOut;
-    @NotEmpty
+    @NotNull
     private long total;
     private Timestamp createdAt;
 
