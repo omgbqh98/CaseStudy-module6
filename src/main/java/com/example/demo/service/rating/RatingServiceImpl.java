@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +34,8 @@ public class RatingServiceImpl implements IRatingService{
 
     @Override
     public Rating save(Rating rating) {
-        return null;
+        rating.setCreatedAt(Timestamp.valueOf(java.time.LocalDateTime.now()));
+        return ratingRepository.save(rating);
     }
 
     @Override
@@ -89,10 +91,10 @@ public class RatingServiceImpl implements IRatingService{
         return userList;
     }
 
-    @Override
-    public Rating createComment(Long id, Rating rating) {
-        rating.setParentId(id);
-        rating.setRate(0);
-        return ratingRepository.save(rating);
-    }
+//    @Override
+//    public Rating createComment(Long id, Rating rating) {
+//        rating.setParentId(id);
+//        rating.setRate(0);
+//        return ratingRepository.save(rating);
+//    }
 }

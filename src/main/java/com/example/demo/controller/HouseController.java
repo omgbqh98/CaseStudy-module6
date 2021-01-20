@@ -222,4 +222,13 @@ public class HouseController {
         Iterable<User> users = ratingService.findCheckoutUserByHouse(id);
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
+
+    // Tạo comment theo nhà
+    @PostMapping(value = "/{id}/createRating", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Rating> createNewRating (@RequestBody Rating rating) {
+        Rating newRating = ratingService.save(rating);
+        return new ResponseEntity<>(newRating,HttpStatus.OK);
+    }
+
 }

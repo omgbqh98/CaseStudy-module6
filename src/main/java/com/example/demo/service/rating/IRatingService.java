@@ -15,5 +15,5 @@ public interface IRatingService extends IGeneralService<Rating> {
     Iterable<Rating> findAllChildRatingByHouse(Long id);
     Iterable<User> findCheckoutUserByHouse(Long id);
     Iterable<User> findCheckedOutAndRatedUserByHouse(Long id);
-    Rating createComment(Long id, Rating rating);
+//    Rating createComment(Long id, Rating rating);
 }
