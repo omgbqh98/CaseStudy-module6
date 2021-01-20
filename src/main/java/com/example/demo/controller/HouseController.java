@@ -4,6 +4,7 @@ import com.example.demo.model.Booking;
 import com.example.demo.model.House;
 import com.example.demo.model.Rating;
 import com.example.demo.model.extend.Search;
+import com.example.demo.model.User;
 import com.example.demo.service.booking.IBookingService;
 import com.example.demo.service.house.IHouseService;
 import com.example.demo.service.rating.IRatingService;
@@ -203,6 +204,15 @@ public class HouseController {
     private ResponseEntity<List<House>> searchHouse(@RequestBody Search search) {
         List<House> houses = houseService.searchHouse(search);
         return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
+
+
+    // Lấy tất cả user đã checkout và đã rate nhà
+    @GetMapping(value = "/{id}/checkedOutRatedUser", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Iterable<User>> findCheckedOutAndRatedUserByHouse(@PathVariable Long id){
+        Iterable<User> users = ratingService.findCheckedOutAndRatedUserByHouse(id);
+        return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
 }
