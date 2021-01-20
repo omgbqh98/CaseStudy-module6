@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class HouseServiceImpl implements IHouseService{
+public class HouseServiceImpl implements IHouseService {
     @Autowired
     private IHouseRepository houseRepository;
+
     @Override
     public Iterable<House> findAllByIsDeletedFalse() {
         return houseRepository.findAllByIsDeletedFalse();
@@ -43,5 +44,20 @@ public class HouseServiceImpl implements IHouseService{
     @Override
     public Iterable<House> findAllByIsDeleteFalseOderByCreatedAt() {
         return houseRepository.findAllByIsDeletedFalseOderByCreatedAt();
+    }
+
+    @Override
+    public Iterable<House> findHouseByBedroom(int quantity) {
+        return houseRepository.findHouseByBedroom(quantity);
+    }
+
+    @Override
+    public Iterable<House> findHouseByBathroom(int quantity) {
+        return houseRepository.findHouseByBathroom(quantity);
+    }
+
+    @Override
+    public Iterable<House> findHouseByAddressContaining(String address) {
+        return houseRepository.findHouseByAddressContaining(address);
     }
 }

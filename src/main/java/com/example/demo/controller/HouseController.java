@@ -78,7 +78,6 @@ public class HouseController {
         Iterable<House> houses = houseService.findAllByIsDeleteFalseOderByCreatedAt();
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
-
     //lay booking theo id
     @GetMapping("/getBooking/{id}")
     public ResponseEntity<Optional<Booking>> findBookingById(@PathVariable Long id) {
@@ -142,7 +141,6 @@ public class HouseController {
         Iterable<Rating> ratings = ratingService.findAllChildRatingByParentRating(parentId);
         return new ResponseEntity<>(ratings, HttpStatus.OK);
     }
-
     //checkIn nha trong history booking
     @GetMapping("/checkIn/{id}")
     public ResponseEntity<String> checkIn(@PathVariable Long id) {
