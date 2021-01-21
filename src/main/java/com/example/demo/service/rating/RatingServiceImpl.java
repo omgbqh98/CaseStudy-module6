@@ -1,10 +1,12 @@
 package com.example.demo.service.rating;
 
 import com.example.demo.model.Booking;
+import com.example.demo.model.House;
 import com.example.demo.model.Rating;
 import com.example.demo.model.User;
 import com.example.demo.repository.IRatingRepository;
 import com.example.demo.service.booking.IBookingService;
+import com.example.demo.service.house.IHouseService;
 import com.example.demo.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ public class RatingServiceImpl implements IRatingService{
     private IUserService userService;
     @Autowired
     private IBookingService bookingService;
+    @Autowired
+    private IHouseService houseService;
 
 
     @Override
@@ -102,7 +106,12 @@ public class RatingServiceImpl implements IRatingService{
         bookingService.save(booking1);
         Rating savedRating = save(rating);
         savedRating.setParentId(savedRating.getRatingId());
-        return save(savedRating);
+        // Phần house
+        House house = rating.getHouseId();
+        Rating addedSaving = save(savedRating);
+        house.setAvgRate(avgRateScoreByHouse(house.getHouseId()));
+        houseService.save(house);
+        return addedSaving;
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.example.demo.model.House;
 import com.example.demo.model.Rating;
 import com.example.demo.model.extend.Search;
 import com.example.demo.model.User;
+import com.example.demo.model.*;
 import com.example.demo.service.booking.IBookingService;
 import com.example.demo.service.house.IHouseService;
 import com.example.demo.service.rating.IRatingService;
@@ -239,10 +240,5 @@ public class HouseController {
         return new ResponseEntity<>(newRating,HttpStatus.OK);
     }
 
-    // Lấy tất cả rating score theo nhà
-    @GetMapping(value = "/{id}/avgRate", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Double avgRateScoreByHouse(@PathVariable Long id){
-        return ratingService.avgRateScoreByHouse(id);
-    }
 
 }
