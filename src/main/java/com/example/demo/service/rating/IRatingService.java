@@ -7,6 +7,8 @@ import com.example.demo.repository.IRatingRepository;
 import com.example.demo.service.IGeneralService;
 import org.springframework.data.repository.query.Param;
 
+import java.util.ArrayList;
+
 public interface IRatingService extends IGeneralService<Rating> {
     Iterable<Rating> findAllByHouseId_HouseId(Long houseId);
     Iterable<Rating> findAllParentRatingByHouse(Long id);
@@ -16,4 +18,5 @@ public interface IRatingService extends IGeneralService<Rating> {
     Iterable<User> findCheckoutUserByHouse(Long id);
     Iterable<User> findCheckedOutAndRatedUserByHouse(Long id);
     Rating createRate(Rating rating);
+    ArrayList<Long> findAllRateScoreByHouse(Long id);
 }

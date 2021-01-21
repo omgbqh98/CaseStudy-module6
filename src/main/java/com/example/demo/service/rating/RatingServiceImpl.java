@@ -105,4 +105,9 @@ public class RatingServiceImpl implements IRatingService{
         savedRating.setParentId(savedRating.getRatingId());
         return save(savedRating);
     }
+
+    @Override
+    public ArrayList<Long> findAllRateScoreByHouse(Long id) {
+        return ratingRepository.findAllRateScoreByHouse(id);
+    }
 }

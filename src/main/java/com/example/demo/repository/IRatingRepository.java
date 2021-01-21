@@ -9,7 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.jws.soap.SOAPBinding;
+import java.lang.reflect.Array;
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 @Repository
 public interface IRatingRepository extends JpaRepository<Rating, Long> {
@@ -46,7 +48,9 @@ public interface IRatingRepository extends JpaRepository<Rating, Long> {
     @Query(value ="select * from rating where parent_id = rating_id AND user_id_user_id = :id;", nativeQuery = true)
     Rating findParentRatingByUserId(@Param("id") Long id);
 
-
+    // Lấy tất cả số điểm rate của một nhà
+    @Query(value = "select rate from rating where house_id_house_id = :id AND rating_id = parent_Id AND rate > 0;", nativeQuery = true)
+    ArrayList<Long> findAllRateScoreByHouse (@Param("id") Long id);
 
 
 }
