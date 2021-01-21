@@ -25,6 +25,7 @@ public class Booking {
     @NotNull
     private long total;
     private Timestamp createdAt;
+    private boolean isRated;
     private String status = "1";// 1 chờ,2 đã thuê
 
     public String getStatus() {
