@@ -22,6 +22,7 @@ public class RatingServiceImpl implements IRatingService{
     @Autowired
     private IUserService userService;
 
+
     @Override
     public Iterable<Rating> findAllByHouseId_HouseId(Long houseId) {
         return ratingRepository.findAllByHouseId_HouseIdOrderByCreatedAtDesc(houseId);
@@ -91,10 +92,16 @@ public class RatingServiceImpl implements IRatingService{
         return userList;
     }
 
-//    @Override
-//    public Rating createComment(Long id, Rating rating) {
-//        rating.setParentId(id);
-//        rating.setRate(0);
-//        return ratingRepository.save(rating);
-//    }
+    @Override
+    public Rating createRate(Rating rating) {
+        Booking booking = rating.getBookingId();
+        System.out.println("Booking: " + booking);
+        booking.setRated(true);
+        System.out.println("Booking set true" + booking);
+        Rating savedRating = save(rating);
+        System.out.println("Rating chưa có parentId" + savedRating);
+        savedRating.setParentId(savedRating.getRatingId());
+        System.out.println("Rating có parentId" + savedRating);
+        return save(savedRating);
+    }
 }

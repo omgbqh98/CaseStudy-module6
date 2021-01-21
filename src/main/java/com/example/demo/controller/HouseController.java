@@ -224,10 +224,20 @@ public class HouseController {
     }
 
     // Tạo comment trong thread theo nhà
-    @PostMapping(value = "/createRating", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/createComment", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Rating> createNewRating (@RequestBody Rating rating) {
+    public ResponseEntity<Rating> createNewComment (@RequestBody Rating rating) {
         Rating newRating = ratingService.save(rating);
         return new ResponseEntity<>(newRating,HttpStatus.OK);
     }
+
+    // Tạo rating
+    @PostMapping(value = "/createRating", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Rating> createNewRating (@RequestBody Rating rating) {
+        Rating newRating = ratingService.createRate(rating);
+        return new ResponseEntity<>(newRating,HttpStatus.OK);
+    }
+
+
 }
