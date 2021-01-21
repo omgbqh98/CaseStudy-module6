@@ -26,4 +26,6 @@ public class Rating {
     private String review;
     private long parentId;
     private Timestamp createdAt;
+    @ManyToOne
+    private Booking bookingId;
 }
