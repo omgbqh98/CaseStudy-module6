@@ -4,7 +4,6 @@ import com.example.demo.model.Booking;
 import com.example.demo.model.Rating;
 import com.example.demo.model.User;
 import com.example.demo.repository.IRatingRepository;
-import com.example.demo.repository.IUserRepository;
 import com.example.demo.service.booking.IBookingService;
 import com.example.demo.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,7 +106,7 @@ public class RatingServiceImpl implements IRatingService{
     }
 
     @Override
-    public ArrayList<Long> findAllRateScoreByHouse(Long id) {
-        return ratingRepository.findAllRateScoreByHouse(id);
+    public Double avgRateScoreByHouse(Long id) {
+        return ratingRepository.avgRateScoreByHouse(id);
     }
 }

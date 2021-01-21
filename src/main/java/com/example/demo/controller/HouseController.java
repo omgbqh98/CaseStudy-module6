@@ -239,5 +239,10 @@ public class HouseController {
         return new ResponseEntity<>(newRating,HttpStatus.OK);
     }
 
+    // Lấy tất cả rating score theo nhà
+    @GetMapping(value = "/{id}/avgRate", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Double avgRateScoreByHouse(@PathVariable Long id){
+        return ratingService.avgRateScoreByHouse(id);
+    }
 
 }

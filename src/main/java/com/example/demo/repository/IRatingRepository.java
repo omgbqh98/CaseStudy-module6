@@ -49,8 +49,8 @@ public interface IRatingRepository extends JpaRepository<Rating, Long> {
     Rating findParentRatingByUserId(@Param("id") Long id);
 
     // Lấy tất cả số điểm rate của một nhà
-    @Query(value = "select rate from rating where house_id_house_id = :id AND rating_id = parent_Id AND rate > 0;", nativeQuery = true)
-    ArrayList<Long> findAllRateScoreByHouse (@Param("id") Long id);
+    @Query(value = "select round ((select avg(rate) from rating where house_id_house_id = :id AND rating_id = parent_Id AND rate > 0),1);", nativeQuery = true)
+    Double avgRateScoreByHouse(@Param("id") Long id);
 
 
 }

@@ -18,5 +18,5 @@ public interface IRatingService extends IGeneralService<Rating> {
     Iterable<User> findCheckoutUserByHouse(Long id);
     Iterable<User> findCheckedOutAndRatedUserByHouse(Long id);
     Rating createRate(Rating rating);
-    ArrayList<Long> findAllRateScoreByHouse(Long id);
+    Double avgRateScoreByHouse(Long id);
 }
