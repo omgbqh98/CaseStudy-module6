@@ -5,6 +5,7 @@ import com.example.demo.model.Rating;
 import com.example.demo.model.User;
 import com.example.demo.repository.IRatingRepository;
 import com.example.demo.repository.IUserRepository;
+import com.example.demo.service.booking.IBookingService;
 import com.example.demo.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class RatingServiceImpl implements IRatingService{
     private IRatingRepository ratingRepository;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IBookingService bookingService;
 
 
     @Override
@@ -95,13 +98,11 @@ public class RatingServiceImpl implements IRatingService{
     @Override
     public Rating createRate(Rating rating) {
         Booking booking = rating.getBookingId();
-        System.out.println("Booking: " + booking);
-        booking.setRated(true);
-        System.out.println("Booking set true" + booking);
+        Booking booking1 = bookingService.findById(booking.getBookingId()).get();
+        booking1.setRated(true);
+        bookingService.save(booking1);
         Rating savedRating = save(rating);
-        System.out.println("Rating chưa có parentId" + savedRating);
         savedRating.setParentId(savedRating.getRatingId());
-        System.out.println("Rating có parentId" + savedRating);
         return save(savedRating);
     }
 }
