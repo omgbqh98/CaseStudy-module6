@@ -20,6 +20,6 @@ public interface IBookingRepository extends JpaRepository<Booking,Long> {
     Booking findCheckedOutBookingByUser(@Param("id") Long id);
 
     // Lấy tất cả những booking đã checkout nhưng chưa rate trong 3 tháng gần nhất
-    @Query(value = "SELECT * FROM booking where check_out < curdate() AND is_rated = 0 AND datediff (curdate(), check_out) < 90 AND user_id_user_id = :id;", nativeQuery = true)
-    Iterable<Booking> findAllBookingNotRatedInThreeMonths (@Param("id") Long id);
+    @Query(value = "SELECT * FROM booking where check_out < curdate() AND is_rated = 0 AND datediff (curdate(), check_out) < 90 AND user_id_user_id = :id", nativeQuery = true)
+    Iterable<Booking> findAllBookingNotRatedInThreeMonthsByUser (@Param("id") Long id);
 }

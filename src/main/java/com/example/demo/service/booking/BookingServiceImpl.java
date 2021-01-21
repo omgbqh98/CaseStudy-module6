@@ -47,4 +47,9 @@ public class BookingServiceImpl implements IBookingService {
     public void delete(Long id) {
         bookingRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<Booking> findAllBookingNotRatedInThreeMonthsByUser(Long id) {
+        return bookingRepository.findAllBookingNotRatedInThreeMonthsByUser(id);
+    }
 }
