@@ -38,7 +38,7 @@ public interface IRatingRepository extends JpaRepository<Rating, Long> {
     Iterable<BigInteger> findCheckoutUserByHouse(@Param("id") Long id);
 
     // Lấy tất cả những người đã book + checkout + đã rate
-    @Query(value="SELECT rating.user_id_user_id from rating INNER JOIN booking ON rating.user_id_user_id = booking.user_id_user_id where booking.house_id_house_id = :id AND booking.check_out >= CURDATE() AND rating.parent_id = rating.rating_id group by rating.user_id_user_id;", nativeQuery = true)
+    @Query(value="SELECT rating.user_id_user_id from rating INNER JOIN booking ON rating.user_id_user_id = booking.user_id_user_id where booking.house_id_house_id = :id AND booking.check_out <= CURDATE() AND rating.parent_id = rating.rating_id group by rating.user_id_user_id;", nativeQuery = true)
     Iterable<BigInteger> findCheckedOutAndRatedUserByHouse(@Param("id") Long id);
 
 
