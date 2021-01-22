@@ -240,5 +240,12 @@ public class HouseController {
         return new ResponseEntity<>(newRating,HttpStatus.OK);
     }
 
+//    // Lấy all rating score theo nhà
+//    @GetMapping(value = "/{id}/avgRate", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseBody
+//    public ResponseEntity<Iterable<Integer>> avgRateScoreByHouse(@PathVariable Long id){
+//        Iterable<Integer> allRates = ratingService.avgRateScoreByHouse(id);
+//        return new ResponseEntity<>(allRates, HttpStatus.OK);
+//    }
 
 }
