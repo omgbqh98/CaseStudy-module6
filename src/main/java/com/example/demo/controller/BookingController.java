@@ -62,4 +62,12 @@ public class BookingController {
             }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+//    @GetMapping("/checkHired")
+//    public ResponseEntity<String> checkHired() {
+//        Calendar cal = Calendar.getInstance();
+//        Date date = cal.getTime();
+//        for (:) {
+//        }
+//    }
 }
