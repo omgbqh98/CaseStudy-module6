@@ -63,11 +63,19 @@ public class BookingController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @GetMapping("/checkHired")
-//    public ResponseEntity<String> checkHired() {
-//        Calendar cal = Calendar.getInstance();
-//        Date date = cal.getTime();
-//        for (:) {
-//        }
-//    }
+    @GetMapping("/checkHired")
+    public ResponseEntity<String> checkHired() {
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        for (Booking bookingFind: iBookingService.findAll()) {
+            long checkInTime = bookingFind.getCheckIn().getTime();
+            long currentTime = date.getTime();
+            if (currentTime > checkInTime || currentTime == checkInTime) {
+                Booking booking = iBookingService.findById(bookingFind.getBookingId()).get();
+                booking.setStatus("2");
+                iBookingService.save(booking);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
