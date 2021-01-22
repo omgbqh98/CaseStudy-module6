@@ -241,7 +241,7 @@ public class HouseController {
         return new ResponseEntity<>(newRating,HttpStatus.OK);
     }
 
-    // Lấy ra nhà được rate cao nhất
+    // Lấy ra 9 nhà được rate cao nhất
     @GetMapping(value = "/bestHouses")
     public ResponseEntity<Iterable<House>> findBestHouses() {
         Iterable<House> houses = houseService.findBestHouses();
