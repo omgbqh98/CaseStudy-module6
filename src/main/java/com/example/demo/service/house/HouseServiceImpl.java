@@ -216,6 +216,10 @@ public class HouseServiceImpl implements IHouseService {
         }
 
         return listOutput;
+    }
 
+    @Override
+    public Iterable<House> findBestHouses() {
+        return houseRepository.findBestHouses();
     }
 }

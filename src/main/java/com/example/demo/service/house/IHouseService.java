@@ -25,4 +25,5 @@ public interface IHouseService extends IGeneralService<House> {
 
     Iterable<House> findHouseByPriceIsGreaterThanEqual(long priceGreaterThan);
 
+    Iterable<House> findBestHouses ();
 }

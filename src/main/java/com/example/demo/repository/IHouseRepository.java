@@ -35,4 +35,8 @@ public interface IHouseRepository extends JpaRepository<House, Long> {
     // Tìm kiếm theo giá lớn hơn 1000$
     Iterable<House> findHouseByPriceIsGreaterThanEqual(long priceGreaterThan);
 
+    // Lấy 3 nhà rate cao nhất
+    @Query (value = "select * from house order by avg_rate desc limit 9", nativeQuery = true)
+    Iterable<House> findBestHouses();
+
 }
