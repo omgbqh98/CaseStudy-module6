@@ -102,10 +102,9 @@ public class HouseController {
         long timeDemo = orderTime - currentTime;
         if (timeDemo > oneDay && timeDemo > 0) {
             bookingService.delete(id);
-            Optional<House> house1 = houseService.findById(booking.get().getHouseId().getHouseId());
-            house1.get().setStatus(0);
-            houseService.save(house1.get());
-//            booking.get().setHouseId(booking.get().getHouseId().setStatus(0));
+//            Optional<House> house1 = houseService.findById(booking.get().getHouseId().getHouseId());
+//            house1.get().setStatus(0);
+//            houseService.save(house1.get());
         } else {
             return new ResponseEntity<>("Không thể xoá", HttpStatus.NOT_FOUND);
         }
@@ -149,10 +148,19 @@ public class HouseController {
     @GetMapping("/checkIn/{id}")
     public ResponseEntity<String> checkIn(@PathVariable Long id) {
         Optional<Booking> booking = bookingService.findById(id);
-        Optional<House> house = houseService.findById(booking.get().getHouseId().getHouseId());
-        house.get().setStatus(1);
-        houseService.save(house.get());
-        return new ResponseEntity<>(HttpStatus.OK);
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        long checkoutTime = booking.get().getCheckOut().getTime();
+        long currentTime = date.getTime();
+        long timeDemo = currentTime - checkoutTime;
+        if (timeDemo < 88640000) {
+            Optional<House> house = houseService.findById(booking.get().getHouseId().getHouseId());
+            house.get().setStatus(1);
+            houseService.save(house.get());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     //doi trang thai nha sang dang nang cap
@@ -189,14 +197,6 @@ public class HouseController {
         house.setStatus(0);
         houseService.save(house);
         return new ResponseEntity<>("thanh cong", HttpStatus.OK);
-//        House house = houseService.findById(id).get();
-//        if (house.getStatus() == 1) {
-//            return new ResponseEntity<>("ko the doi", HttpStatus.BAD_GATEWAY);
-//        } else {
-//            house.setStatus(0);
-//            houseService.save(house);
-//            return new ResponseEntity<>("thanh cong", HttpStatus.OK);
-//        }
     }
 
     @PostMapping("/search")
