@@ -25,6 +25,15 @@ public class Booking {
     @NotNull
     private long total;
     private Timestamp createdAt;
+    private String status = "1";// 1 chờ,2 đã thuê
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Long getBookingId() {
         return bookingId;

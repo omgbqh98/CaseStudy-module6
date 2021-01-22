@@ -29,4 +29,10 @@ public interface IHouseRepository extends JpaRepository<House, Long> {
     //Tìm kiếm địa chỉ
     Iterable<House> findHouseByAddressContaining(String address);
 
+    //Tìm kiếm theo giá từ 0-1000$
+    Iterable<House> findHouseByPriceBetween(long from, long to);
+
+    // Tìm kiếm theo giá lớn hơn 1000$
+    Iterable<House> findHouseByPriceIsGreaterThanEqual(long priceGreaterThan);
+
 }

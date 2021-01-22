@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Booking;
 import com.example.demo.model.House;
 import com.example.demo.model.Rating;
+import com.example.demo.model.extend.Search;
 import com.example.demo.service.booking.IBookingService;
 import com.example.demo.service.house.IHouseService;
 import com.example.demo.service.rating.IRatingService;
@@ -16,6 +17,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -78,6 +80,7 @@ public class HouseController {
         Iterable<House> houses = houseService.findAllByIsDeleteFalseOderByCreatedAt();
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
+
     //lay booking theo id
     @GetMapping("/getBooking/{id}")
     public ResponseEntity<Optional<Booking>> findBookingById(@PathVariable Long id) {
@@ -141,6 +144,7 @@ public class HouseController {
         Iterable<Rating> ratings = ratingService.findAllChildRatingByParentRating(parentId);
         return new ResponseEntity<>(ratings, HttpStatus.OK);
     }
+
     //checkIn nha trong history booking
     @GetMapping("/checkIn/{id}")
     public ResponseEntity<String> checkIn(@PathVariable Long id) {
@@ -194,4 +198,11 @@ public class HouseController {
 //            return new ResponseEntity<>("thanh cong", HttpStatus.OK);
 //        }
     }
+
+    @PostMapping("/search")
+    private ResponseEntity<List<House>> searchHouse(@RequestBody Search search) {
+        List<House> houses = houseService.searchHouse(search);
+        return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
+
 }
