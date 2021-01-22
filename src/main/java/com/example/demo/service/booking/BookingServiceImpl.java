@@ -21,10 +21,6 @@ public class BookingServiceImpl implements IBookingService {
         return bookingRepository.findBookingByUserId(id);
     }
 
-    @Override
-    public void delete(Long id) {
-
-    }
 
     @Override
     public Booking save(Booking booking) {
@@ -45,5 +41,10 @@ public class BookingServiceImpl implements IBookingService {
     @Override
     public void remove(Long id) {
     bookingRepository.deleteById(id);
+    }
+
+    @Override
+    public void delete(Long id) {
+        bookingRepository.deleteById(id);
     }
 }
