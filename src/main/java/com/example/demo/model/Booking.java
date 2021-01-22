@@ -25,6 +25,7 @@ public class Booking {
     @NotNull
     private long total;
     private Timestamp createdAt;
+    private boolean isRated;
     private String status = "1";// 1 chờ,2 đã thuê
 
     public String getStatus() {
@@ -85,6 +86,14 @@ public class Booking {
 
     public Timestamp getCreatedAt() {
         return createdAt;
+    }
+
+    public boolean isRated() {
+        return isRated;
+    }
+
+    public void setRated(boolean rated) {
+        isRated = rated;
     }
 
     public void setCreatedAt(Timestamp createdAt) {

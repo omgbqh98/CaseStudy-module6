@@ -74,6 +74,12 @@ public class UserController {
     public ResponseEntity<Iterable<Booking>> findBookingByUserId(@PathVariable Long id) {
         Iterable<Booking> bookings = bookingService.findBookingByUserId(id);
         return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
 
+    //Lấy tất cả những booking đã checkout nhưng chưa rate trong 3 tháng gần nhất
+    @GetMapping("/{id}/bookingNotRateThreeMonths")
+    public ResponseEntity<Iterable<Booking>> findAllBookingNotRatedInThreeMonthsByUser(@PathVariable Long id) {
+        Iterable<Booking> bookings = bookingService.findAllBookingNotRatedInThreeMonthsByUser(id);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 }

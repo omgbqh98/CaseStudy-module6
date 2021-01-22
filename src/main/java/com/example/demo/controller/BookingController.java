@@ -26,6 +26,7 @@ public class BookingController {
 
     @PostMapping(value = "booking-hotel")
     public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
+        booking.setRated(false);
         booking.setCreatedAt(Timestamp.valueOf(java.time.LocalDateTime.now()));
         return new ResponseEntity<>(iBookingService.save(booking), HttpStatus.OK);
     }

@@ -36,6 +36,7 @@ public class House {
     @Column(columnDefinition="BOOLEAN DEFAULT false")
     private boolean isDeleted;
     private Timestamp createdAt;
+    private double avgRate;
 
 
     public House(@NotEmpty String houseName, @NotEmpty int type, @NotEmpty String address, @NotEmpty String description, long price, @NotEmpty int bedroom, @NotEmpty int bathroom, @NotEmpty int status, User ownerId, boolean isDeleted, String avatar) {
@@ -156,5 +157,13 @@ public class House {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public double getAvgRate() {
+        return avgRate;
+    }
+
+    public void setAvgRate(double avgRate) {
+        this.avgRate = avgRate;
     }
 }

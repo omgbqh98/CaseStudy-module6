@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Data
@@ -18,11 +19,13 @@ public class Rating {
     private User userId;
     @ManyToOne
     private House houseId;
-    @Min(1)
-    @Max(5)
-    @NotEmpty
+//    @Min(1)
+//    @Max(5)
+    @NotNull
     private int rate;
     private String review;
     private long parentId;
     private Timestamp createdAt;
+    @ManyToOne
+    private Booking bookingId;
 }
