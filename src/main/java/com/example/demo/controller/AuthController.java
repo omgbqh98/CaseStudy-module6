@@ -108,8 +108,26 @@ public class AuthController {
     public ResponseEntity<?> receiveGoogletoken(@RequestBody GoogleToken googleToken) throws GeneralSecurityException, IOException {
         GoogleIdToken idToken = jwtService.validateGoogleToken(googleToken.getToken());
         if (idToken != null) {
-            return ResponseEntity.ok(true);
+            Payload payload = idToken.getPayload();
+
+            User checkUser = userService.findByEmail(payload.getEmail());
+            if (checkUser != null) {
+                String jwt = jwtService.generateAccessToken(checkUser);
+                return ResponseEntity.ok(new JwtResponse(jwt, checkUser.getUsername()));
+            }
+            User user = new User();
+            user.setEmail(payload.getEmail());
+            user.setUsername( (String)payload.get("name"));
+            user.setAvatar( (String) payload.get("picture"));
+            user.setFullName((String) payload.get("family_name") + (String) payload.get("given_name"));
+            user.setPassword("12345678");
+            user.setPhone(" ");
+            userService.save(user);
+            String jwt = jwtService.generateAccessToken(checkUser);
+            return ResponseEntity.ok(new JwtResponse(jwt, checkUser.getUsername()));
+//            return ResponseEntity.ok(true);
         }
+//        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         return ResponseEntity.ok(false);
     }
 }

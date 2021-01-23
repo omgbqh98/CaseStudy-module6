@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.GoogleToken;
 import com.example.demo.model.UserPrinciple;
+import com.example.demo.model.User;
 import com.google.api.client.http.LowLevelHttpRequest;
 import io.jsonwebtoken.*;
 import jdk.nashorn.internal.parser.Token;
@@ -31,6 +32,15 @@ public class JwtService {
         UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(userPrinciple.getUsername())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime() +EXPIRE_TIME*1000))
+                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+                .compact();
+    }
+
+    public String generateAccessToken(User user) {
+        return Jwts.builder()
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() +EXPIRE_TIME*1000))
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
