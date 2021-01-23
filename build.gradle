@@ -16,6 +16,7 @@ configurations {
 
 repositories {
     mavenCentral()
+    google()
 }
 
 dependencies {
@@ -31,7 +32,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '1.2.5.RELEASE'
-
+    compile 'com.google.api-client:google-api-client:1.31.2'
+    compile 'com.google.http-client:google-http-client-jackson2:1.32.1'
 }
 
 test {

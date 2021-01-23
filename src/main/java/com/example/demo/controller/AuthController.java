@@ -16,8 +16,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Optional;
 
 @CrossOrigin("*")
@@ -101,7 +105,11 @@ public class AuthController {
 
     //API nhận Google token
     @PostMapping("/googleSignIn")
-    public ResponseEntity<?> receiveGoogletoken(@RequestBody GoogleToken googleToken){
-        return ResponseEntity.ok(googleToken.getToken());
+    public ResponseEntity<?> receiveGoogletoken(@RequestBody GoogleToken googleToken) throws GeneralSecurityException, IOException {
+        GoogleIdToken idToken = jwtService.validateGoogleToken(googleToken.getToken());
+        if (idToken != null) {
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.ok(false);
     }
 }
