@@ -22,7 +22,7 @@ public class User {
     private String address;
     private String email;
     private String avatar;
-    private String description;
+//    private String description;
 
 
     public User() {
@@ -98,11 +98,11 @@ public class User {
         this.avatar = avatar;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
 }

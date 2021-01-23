@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.GoogleToken;
 import com.example.demo.model.JwtResponse;
 import com.example.demo.model.User;
 import com.example.demo.service.JwtService;
@@ -100,7 +101,7 @@ public class AuthController {
 
     //API nhận Google token
     @PostMapping("/googleSignIn")
-    public ResponseEntity<?> receiveGoogletoken(@RequestBody String token){
-        return ResponseEntity.ok(token);
+    public ResponseEntity<?> receiveGoogletoken(@RequestBody GoogleToken googleToken){
+        return ResponseEntity.ok(googleToken.getToken());
     }
 }
