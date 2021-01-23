@@ -22,6 +22,7 @@ public class User {
     private String address;
     private String email;
     private String avatar;
+    private String description;
 
 
     public User() {
@@ -95,5 +96,13 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
