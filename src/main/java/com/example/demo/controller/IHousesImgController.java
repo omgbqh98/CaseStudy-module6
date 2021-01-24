@@ -44,8 +44,7 @@ public class IHousesImgController {
     }
     @DeleteMapping(value = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public  ResponseEntity<HouseImg>deleteOneHousesImg(@PathVariable Long id){
-    iHousesImgService.remove(id);
+    public  ResponseEntity<HouseImg>deleteOneHousesImg(@PathVariable Long id){ iHousesImgService.remove(id);
         return  new ResponseEntity<HouseImg>(HttpStatus.OK);
     }
 }
