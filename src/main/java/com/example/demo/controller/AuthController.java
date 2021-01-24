@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.GoogleToken;
 import com.example.demo.model.JwtResponse;
 import com.example.demo.model.User;
 import com.example.demo.service.JwtService;
@@ -15,8 +16,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Optional;
 
 @CrossOrigin("*")
@@ -100,7 +105,27 @@ public class AuthController {
 
     //API nhận Google token
     @PostMapping("/googleSignIn")
-    public ResponseEntity<?> receiveGoogletoken(@RequestBody String token){
-        return ResponseEntity.ok(token);
+    public ResponseEntity<?> receiveGoogletoken(@RequestBody GoogleToken googleToken) throws GeneralSecurityException, IOException {
+        GoogleIdToken idToken = jwtService.validateGoogleToken(googleToken.getToken());
+        if (idToken != null) {
+            Payload payload = idToken.getPayload();
+
+            User checkUser = userService.findByEmail(payload.getEmail());
+            if (checkUser != null) {
+                String jwt = jwtService.generateAccessToken(checkUser);
+                return ResponseEntity.ok(new JwtResponse(jwt, checkUser.getUsername()));
+            }
+            User user = new User();
+            user.setEmail(payload.getEmail());
+            user.setUsername( (String)payload.get("name"));
+            user.setAvatar( (String) payload.get("picture"));
+            user.setFullName((String) payload.get("family_name") + (String) payload.get("given_name"));
+            user.setPassword(passwordEncoder.encode("12345678"));
+            user.setPhone(" ");
+            userService.save(user);
+            String jwt = jwtService.generateAccessToken(checkUser);
+            return ResponseEntity.ok(new JwtResponse(jwt, checkUser.getUsername()));
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 }
