@@ -56,7 +56,7 @@ public class AuthController {
         Iterable<User> users = userService.findAll();
         for (User currentUser : users) {
             if (currentUser.getUsername().equals(user.getUsername())) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
             }
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
