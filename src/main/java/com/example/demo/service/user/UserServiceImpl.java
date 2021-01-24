@@ -50,4 +50,9 @@ public class UserServiceImpl implements IUserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    @Override
+    public Iterable<User> findAllOwner() {
+        return userRepository.findAllOwner();
+    }
 }

@@ -82,4 +82,11 @@ public class UserController {
         Iterable<Booking> bookings = bookingService.findAllBookingNotRatedInThreeMonthsByUser(id);
         return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
+
+    // Lấy tất cả những user nào là chủ nhà
+    @GetMapping("/owners")
+    public ResponseEntity<Iterable<User>> findAllOwners() {
+        Iterable<User> owners = userService.findAllOwner();
+        return new ResponseEntity<>(owners, HttpStatus.OK);
+    }
 }
