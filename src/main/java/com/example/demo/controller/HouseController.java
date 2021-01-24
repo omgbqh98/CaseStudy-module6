@@ -47,6 +47,7 @@ public class HouseController {
     @ResponseBody
     public House createHouse(@RequestBody House house) {
         house.setCreatedAt(Timestamp.valueOf(java.time.LocalDateTime.now()));
+        house.setAvatar("https://plantationhomes.com.au/cms_uploads/images/15861_six-stages-of-building-a-home.jpg");
         return houseService.save(house);
     }
 
