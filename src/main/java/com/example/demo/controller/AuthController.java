@@ -125,9 +125,7 @@ public class AuthController {
             userService.save(user);
             String jwt = jwtService.generateAccessToken(checkUser);
             return ResponseEntity.ok(new JwtResponse(jwt, checkUser.getUsername()));
-//            return ResponseEntity.ok(true);
         }
-//        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        return ResponseEntity.ok(false);
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 }
