@@ -26,9 +26,6 @@ public class IHousesImgController {
     @PostMapping(value = "create", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<HouseImg> createHouses(@RequestBody HouseImg houseImg) {
-//        House house = houseImg.getHouseId();
-//        houseImg.setHouseId(house);
-
         HouseImg houseImg1 = iHousesImgService.save(houseImg);
         return new ResponseEntity<HouseImg>(houseImg1, HttpStatus.OK);
     }
@@ -44,5 +41,11 @@ public class IHousesImgController {
        Optional<House> house = iHouseService.findById(id);
         Iterable<HouseImg> houseImgs= iHousesImgService.findAllByHouseId(house.get());
         return  new ResponseEntity<Iterable<HouseImg>>(houseImgs,HttpStatus.OK);
+    }
+    @DeleteMapping(value = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public  ResponseEntity<HouseImg>deleteOneHousesImg(@PathVariable Long id){
+    iHousesImgService.remove(id);
+        return  new ResponseEntity<HouseImg>(HttpStatus.OK);
     }
 }

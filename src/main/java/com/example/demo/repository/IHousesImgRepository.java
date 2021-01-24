@@ -6,5 +6,4 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface IHousesImgRepository extends CrudRepository<HouseImg,Long> {
     Iterable<HouseImg>findAllByHouseId(House house);
-
 }
