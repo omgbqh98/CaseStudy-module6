@@ -2,12 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Booking;
 import com.example.demo.model.House;
+import com.example.demo.model.HouseImg;
 import com.example.demo.model.Rating;
 import com.example.demo.model.extend.Search;
 import com.example.demo.model.User;
 import com.example.demo.model.*;
 import com.example.demo.service.booking.IBookingService;
 import com.example.demo.service.house.IHouseService;
+import com.example.demo.service.houses.IHousesImgService;
 import com.example.demo.service.rating.IRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,8 @@ import java.util.Optional;
 public class HouseController {
     @Autowired
     private IHouseService houseService;
+    @Autowired
+    private IHousesImgService iHousesImgService;
     @Autowired
     private IBookingService bookingService;
     private long oneDay = 8640000;

@@ -38,4 +38,5 @@ iHousesImgRepository.deleteById(id);
     public Iterable<HouseImg> findAllByHouseId(House house) {
         return iHousesImgRepository.findAllByHouseId(house);
     }
+
 }
