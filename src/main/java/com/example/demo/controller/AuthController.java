@@ -120,7 +120,7 @@ public class AuthController {
             user.setUsername( (String)payload.get("name"));
             user.setAvatar( (String) payload.get("picture"));
             user.setFullName((String) payload.get("family_name") + (String) payload.get("given_name"));
-            user.setPassword("12345678");
+            user.setPassword(passwordEncoder.encode("12345678"));
             user.setPhone(" ");
             userService.save(user);
             String jwt = jwtService.generateAccessToken(checkUser);
